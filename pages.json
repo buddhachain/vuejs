@@ -8,6 +8,33 @@
 			}
 		},
 		{
+			"path": "pages/rollIn/main",
+			"style": {
+				"navigationBarTitleText":"转入"
+			}
+		},
+		{
+			"path": "pages/backup/main",
+			"style": {
+				"navigationBarTitleText":"备份助记词"
+			}
+		},
+		{
+			"path": "pages/manage/main",
+			"style": {
+				"navigationBarTitleText":"佛界钱包管理"
+			}
+		},
+	
+		{
+			"path": "pages/tip/main",
+			"style": {
+				"navigationBarTitleText":"安全提示"
+			}
+		},
+		
+		
+		{
 			"path": "pages/import/main",
 			"style": {
 				"navigationBarTitleText": "导入HD钱包"

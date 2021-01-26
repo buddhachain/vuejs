@@ -3,6 +3,8 @@
         <slot></slot>
     </button>
 </template>
+<script>
+</script>
 <style lang="scss" scoped>
     button {
         padding: 0;
@@ -15,8 +17,16 @@
         line-height: 80upx;
         font-size: 34upx;
         border: none;
+        width: 100%;
         &.button-hover {
             background: #ffdf7b;
+        }
+        &[type=white] {
+            background: #fff;
+            color: #909090;
+            &.button-hover {
+                background: #ececec;
+            }
         }
     }
 </style>

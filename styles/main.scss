@@ -5,11 +5,26 @@ html,body {
 }
 text {
     &.yellow{
-        color: #d19a62;
+        color: #f5a34f;
     }
     &.red {
-        color: #c4777d;
+        color: #df646e;
     }
+    &.gray {
+        color: #888888;
+    }
+}
+.shadow {
+    box-shadow: 0 0 16upx 0upx #d7d7d7;
+}
+.btn_wrap {
+    margin: 0 auto;
+    width: 80%;
+}
+.text_overflow {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .bg{
     &-white {
