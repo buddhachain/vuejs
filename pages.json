@@ -1,0 +1,23 @@
+{
+	"pages": [
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationStyle":"custom",
+				"navigationBarTitleText":"佛界钱包"
+			}
+		},
+		{
+			"path": "pages/import/main",
+			"style": {
+				"navigationBarTitleText": "导入HD钱包"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "佛界钱包",
+		"navigationBarBackgroundColor": "#f6f7fb",
+		"backgroundColor": "#f6f7fb"
+	}
+}

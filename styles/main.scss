@@ -1,0 +1,34 @@
+html,body {
+    min-height: 100vh;
+    background: #f6f7fb;
+    color: #28292b;
+}
+text {
+    &.yellow{
+        color: #d19a62;
+    }
+    &.red {
+        color: #c4777d;
+    }
+}
+.bg{
+    &-white {
+        background: #fff;
+    }
+    &-none {
+        background: #f6f7fb;
+    }
+}
+.tab_wrap {
+    display: flex;
+    height: 100upx;
+    .tab_item {
+        line-height: 100upx;
+        padding: 0 10upx;
+        font-size: 28upx;
+        color: #4a4b4f;
+        &.active {
+            color: #313131;
+        }
+    }
+}
