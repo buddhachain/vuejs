@@ -1,5 +1,5 @@
 <template>
-    <view class="card_wrap bg-white shadow">
+    <view class="card_wrap bg-white shadow radius">
         <view class="body_title">
             {{ title }}
         </view>

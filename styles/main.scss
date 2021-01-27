@@ -13,9 +13,18 @@ text {
     &.gray {
         color: #888888;
     }
+    &.in {
+        color: #478755;
+    }
 }
 .shadow {
     box-shadow: 0 0 16upx 0upx #d7d7d7;
+}
+.radius {
+    border-radius: 8upx;
+}
+._flex {
+    display: flex;
 }
 .btn_wrap {
     margin: 0 auto;
@@ -34,6 +43,14 @@ text {
         background: #f6f7fb;
     }
 }
+.align {
+    &-center {
+        text-align: center;
+    }
+    &-right {
+        text-align: right;
+    }
+}
 .tab_wrap {
     display: flex;
     height: 100upx;
@@ -46,4 +63,16 @@ text {
             color: #313131;
         }
     }
+}
+// page-footer
+
+.page_footer_wrap {
+    height: 100upx;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10upx 20upx;
+    z-index: 99;
 }

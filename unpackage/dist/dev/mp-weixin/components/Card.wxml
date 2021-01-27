@@ -1,0 +1,1 @@
+<view class="card_wrap bg-white shadow data-v-f883d62a"><view class="body_title data-v-f883d62a">{{''+title+''}}</view><view class="cont data-v-f883d62a"><slot></slot></view></view>

@@ -1,5 +1,5 @@
 <template>
-    <view class="coin_bar bg-white">
+    <view class="coin_bar bg-white shadow" @click="clickHandle">
         <view class="_l">
             <image :src="$attrs.img" mode="image" />
             <view>{{ $attrs.name }}</view>
@@ -8,13 +8,22 @@
         <view>></view>
     </view>
 </template>
+<script>
+export default {
+    methods: {
+        clickHandle (e) {
+            this.$emit('click', e)
+        }
+    }
+}
+</script>
 <style lang="scss" scoped>
     .coin_bar {
         height: 100upx;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 20upx;
+        padding: 0 40upx;
         ._l {
             display: flex;
             justify-content: flex-start;

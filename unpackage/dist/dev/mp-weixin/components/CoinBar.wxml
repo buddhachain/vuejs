@@ -1,0 +1,1 @@
+<view class="coin_bar bg-white data-v-3751a737"><view class="_l data-v-3751a737"><image src="{{$attrs.img}}" mode="image" class="data-v-3751a737"></image><view class="data-v-3751a737">{{$attrs.name}}</view></view><view class="data-v-3751a737">></view></view>

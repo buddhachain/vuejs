@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "pages/wallet/rollIn/main",
+    "pages/wallet/index/index",
+    "pages/wallet/backup/main",
+    "pages/wallet/manage/main",
+    "pages/wallet/tip/main",
+    "pages/wallet/import/main"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "佛界钱包",
+    "navigationBarBackgroundColor": "#f6f7fb",
+    "backgroundColor": "#f6f7fb"
+  },
+  "usingComponents": {}
+}
