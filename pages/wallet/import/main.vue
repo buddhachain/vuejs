@@ -29,7 +29,7 @@
             </text>
         </view>
         <view class="btn_wrap">
-            <Button style="width: 100%">开始导入</Button>
+            <Button long style="width: 100%">开始导入</Button>
         </view>
     </view>
 </template>

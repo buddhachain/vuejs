@@ -1,14 +1,65 @@
 {
 	"pages": [
 		{
-			"path": "pages/index/index",
+			"path": "pages/wallet/index/index",
 			"style": {
 				"navigationStyle":"custom",
 				"navigationBarTitleText":"佛界钱包"
 			}
 		},
 		{
-			"path": "pages/import/main",
+			"path": "pages/wallet/transfer/out",
+			"style": {
+				"navigationBarTitleText":"转出"
+			}
+		},
+		{
+			"path": "pages/wallet/transfer/in",
+			"style": {
+				"navigationBarTitleText":"转入"
+			}
+		},
+		{
+			"path": "pages/wallet/create/passwd",
+			"style":{
+				"navigationBarTitleText": "创建佛界钱包"
+			}	
+		},
+		{
+			"path": "pages/wallet/transfer/coinFinance",
+			"style": {
+				"navigationBarTitleText": "币种资产"
+			}
+		},
+		{
+			"path": "pages/wallet/backup/main",
+			"style": {
+				"navigationBarTitleText":"备份助记词"
+			}
+		},
+		{
+			"path":"pages/wallet/backup/verify",
+			"style": {
+				"navigationBarTitleText": "验证助记词"
+			}
+		},
+		{
+			"path": "pages/wallet/manage/main",
+			"style": {
+				"navigationBarTitleText":"佛界钱包管理"
+			}
+		},
+	
+		{
+			"path": "pages/wallet/tip/main",
+			"style": {
+				"navigationBarTitleText":"安全提示"
+			}
+		},
+		
+		
+		{
+			"path": "pages/wallet/import/main",
 			"style": {
 				"navigationBarTitleText": "导入HD钱包"
 			}

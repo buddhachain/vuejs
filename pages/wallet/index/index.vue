@@ -9,7 +9,7 @@
 		</view>
 		<view class="main_body">
 			<view class="wallet-icon">
-				<image src="../../static/pages/index/wallet.jpg" mode="image" />
+				<image src="../../../static/pages/index/wallet.jpg" mode="image" />
 			</view>
 			<view class="info-msg">
 				<view class="_text">创建属于自己的 <text>佛界</text> 钱包</view>
@@ -18,10 +18,10 @@
 			</view>
 		</view>
 		<view class="create_wallet_btn_box">
-			<Button style="width:100%">创建<span>佛界</span>钱包</Button>
+			<Button long style="width:100%">创建<span>佛界</span>钱包</Button>
 		</view>
 		<view class="import_wallet_tip">
-			已有<text>佛界</text>钱包？ <text class="yellow" @click="$to('/pages/import/main')">点此导入钱包</text>
+			已有<text>佛界</text>钱包？ <text class="yellow" @click="$to('/pages/wallet/import/main')">点此导入钱包</text>
 		</view>
 	</view>
 </template>
