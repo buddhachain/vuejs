@@ -1,6 +1,27 @@
 {
 	"pages": [
 		{
+			"path": "pages/app/activity/main",
+			"style": {
+				"navigationBarTitleText": "详情",
+				"backgroundColor":"#ffffff",
+				"navigationBarBackgroundColor": "#ffffff"
+			}
+		},
+		{
+			"path": "pages/app/index",
+			"style": {
+				"navigationBarTitleText": "首页",
+				"backgroundColor":"#ffffff",
+				"navigationBarBackgroundColor": "#ffffff"
+			}
+		},{
+			"path": "pages/app/user/main",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		},
+		{
 			"path": "pages/wallet/index/index",
 			"style": {
 				"navigationStyle":"custom",
@@ -70,5 +91,24 @@
 		"navigationBarTitleText": "佛界钱包",
 		"navigationBarBackgroundColor": "#f6f7fb",
 		"backgroundColor": "#f6f7fb"
-	}
+	},
+	"tabBar": {
+        "color":"#73777A",
+        "selectedColor": "#B44446",
+        "backgroundColor": "#FFFFFF",
+        "list": [
+            {
+				"pagePath": "pages/app/index",
+				"text": "首页",
+				"iconPath": "static/tabbar/home.svg",
+				"selectedIconPath": "static/tabbar/home-h.svg"
+			},
+			{
+				"pagePath": "pages/app/user/main",
+				"text": "我的",
+				"iconPath": "static/tabbar/user.svg",
+				"selectedIconPath": "static/tabbar/user-h.svg"
+			}
+        ]
+    }
 }
