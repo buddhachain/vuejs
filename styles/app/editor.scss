@@ -1,0 +1,34 @@
+.editor-page-cont {
+    padding: 30upx;
+    .add_modal {
+        align-items: center;
+        margin-bottom: 20upx;
+        ._icon {
+            // font-size: 2;
+            padding: 0 20upx;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            >view {
+                width: 40upx;
+                height: 40upx;
+                text-align: center;
+                color: #fff;
+                border-radius: 50%;
+                line-height: 40upx;
+                background-color:  rgba(41, 141, 248, 100);
+            }
+        }
+        ._text {
+            flex: 1;
+            padding-left: 20upx;
+            ._title {
+                line-height: 60upx;
+                font-size: 30upx;
+            }
+            ._info {
+                font-size: 26upx;
+            }
+        }
+    }
+}

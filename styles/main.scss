@@ -1,3 +1,5 @@
+@import "./form.scss";
+
 html,body {
     min-height: 100vh;
     background: #f6f7fb;
@@ -78,4 +80,11 @@ text {
     box-sizing: border-box;
     padding: 10upx 20upx;
     z-index: 99;
+}
+// padding
+
+.pd {
+    &-20 {
+        padding: 20upx;
+    }
 }
