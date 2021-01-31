@@ -1,6 +1,14 @@
 {
 	"pages": [
 		{
+			"path": "pages/app/activity/editor",
+			"style": {
+				"navigationBarTitleText": "编辑信息",
+				"backgroundColor":"#ffffff",
+				"navigationBarBackgroundColor": "#ffffff"
+			}
+		},
+		{
 			"path": "pages/app/activity/main",
 			"style": {
 				"navigationBarTitleText": "详情",

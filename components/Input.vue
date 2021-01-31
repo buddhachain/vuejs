@@ -1,5 +1,5 @@
 <template>
-    <view class="input_wrap" :class="{radius: radius}">
+    <view class="input_wrap" :class="`bg-${bg} ${radius ? 'radius' : ''}`">
         <input class="uni_ipt" :type="type" v-model="val" v-bind="$attrs"> 
     </view>
 </template>
@@ -17,6 +17,10 @@ export default {
         radius: {
             type:Boolean,
             default: false
+        },
+        bg: {
+            type: String,
+            default: 'none'
         }
     },
     model: {
@@ -41,18 +45,19 @@ export default {
 <style lang="scss" scoped>
 .input_wrap {
     width: 100%;
-    background: #f6f7fb;
-    line-height: 80upx;
+    // background: #f6f7fb;
+    line-height: 78upx;
     height: 80upx;
     padding: 0 10upx;
-    box-sizing: border-box;
+    box-sizing: content-box;
+    border: 1px solid rgba(187, 187, 187, 100);
     .uni_ipt {
         border: 0;
         background: none;
         font-size: 28upx;
         outline: 0;
-        height: 100%;
         width: 100%;
+        height: 100%;
     }
 }
     

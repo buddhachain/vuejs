@@ -1,0 +1,23 @@
+.form {
+    padding: 40upx;
+    margin: 44upx 0;
+    .form-group {
+        margin-bottom: 50upx;
+    }
+    .label {
+        font-size: 28upx;
+        line-height: 28upx;
+        margin-bottom: 36upx;
+        display: flex;
+        justify-content: space-between;
+        text:last-child {
+            font-size: 26upx;
+        }
+        >view {
+            line-height: 28upx;
+        }
+        .required {
+            color: #e74031;
+        }
+    }
+}
