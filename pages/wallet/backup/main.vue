@@ -46,19 +46,25 @@
                 </view>
             </view>
         </view>
-        <view class="next_btn_wrap">
-            <Button long v-if="_actions._mnemonic.type === this.type">下一步</Button>
+        <view class="page_footer_wrap bg-white">
+            <Button long v-if="_actions._mnemonic.type === this.type" @click="nextStep">下一步</Button>
             <Button long v-else-if="_actions._privateKey.type === this.type">完成</Button>
         </view>
     </view>
 </template>
 <script>
+import Qs from 'qs'
+import XuperSdk,{  accountIns, Language, Cryptography, Strength } from '@xuperchain/xuper-sdk'
 import { actions, getTipItem } from './actions'
+import { random } from '../../../lib/common'
+import { aesEncrypt } from '../../../lib/crypto'
+import passwordActions from '../../../actions/password'
+const xsdk = new XuperSdk({ node: '', chain: 'xuper' })
 export default {
     data () {
         return {
             type: actions._mnemonic.type,
-            mnemonicArr: [['AAAA', 'BBBB', 'CCCC',], [ 'DDDD', 'FFFF','AAAA', ], ['BBBB', 'CCCC', 'DDDD', ], ['FFFF', 'ADSASA', 'ASDASD']]
+            accountModel: {}
         }
     },
     onLoad ({ type }) {
@@ -73,6 +79,18 @@ export default {
         uni.setNavigationBarTitle({
             title: getTipItem(this.type).title
         });
+        if (this.type === 1) {
+            this.accountModel = xsdk.createAccount(
+                Language.English,
+                Strength.Middle,
+                Cryptography.EccFIPS
+            );
+            console.log(this.accountModel)
+            console.log(xsdk.accountIns.create( Language.English,
+                Strength.Middle,
+                Cryptography.EccFIPS))
+                console.log(xsdk.accountIns)
+        }
     },
     computed: {
         _actions () {
@@ -80,8 +98,42 @@ export default {
         },
         actionsItem () {
             return getTipItem(this.type)
+        },
+        mnemonicArr () {
+            if (!this.accountModel.mnemonic) {
+                return [[]]
+            }
+            const mnemonic = this.accountModel.mnemonic;
+            const memicArr = mnemonic.split(' ')
+            const len = Math.ceil(memicArr.length / 3)
+            let mnemonicArr = []
+            for (let i = 0; i < len; i++) {
+                mnemonicArr.push(memicArr.splice(0, 3))
+            }
+            return mnemonicArr
         }
-    }
+    },
+    methods: {
+        nextStep () {
+            const random = this.getRandom()
+            const obj = {}
+            random.forEach(i => {
+                obj[i + 1] = this.accountModel.mnemonic.split(' ')[i]
+            })
+            const str = Qs.stringify(obj)
+            // this.$to('/pages/wallet/backup/verify?q=' + aesEncrypt(str, passwordActions.get().substr(0, 8)))
+        },
+        getRandom () {
+            let arr = []
+            while (arr.length < 3) {
+                const num = random(0, this.accountModel.mnemonic.split(' ').length)
+                if (arr.indexOf(num) === -1) {
+                    arr.push(num)
+                }
+            }
+            return arr.sort((a, b) => a - b)
+        }
+    },
 }
 </script>
 <style lang="scss" scoped>

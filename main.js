@@ -3,6 +3,8 @@ import App from './App'
 import "./lib/UI"
 import { to } from './lib/navigate'
 import { toast, toastSucc, copy } from './lib/common'
+// crypto-js
+import { md5Encrypt } from './lib/crypto'
 
 Vue.config.productionTip = false
 
@@ -23,6 +25,15 @@ Vue.prototype.$to = to;
 Vue.prototype.$toast = toast;
 Vue.prototype.$copy = copy;
 Vue.prototype.toastSucc = toastSucc;
+
+
+Vue.prototype.$onInput = function (e, key) {
+  this[key] = e.detail.value
+}
+
+
+// crypto
+Vue.prototype.$md5 = md5Encrypt;
 
 
 const app = new Vue({

@@ -18,7 +18,7 @@
 			</view>
 		</view>
 		<view class="create_wallet_btn_box">
-			<Button long style="width:100%">创建<span>佛界</span>钱包</Button>
+			<Button long style="width:100%" @click="$to('/pages/wallet/create/passwd')">创建<span>佛界</span>钱包</Button>
 		</view>
 		<view class="import_wallet_tip">
 			已有<text>佛界</text>钱包？ <text class="yellow" @click="$to('/pages/wallet/import/main')">点此导入钱包</text>

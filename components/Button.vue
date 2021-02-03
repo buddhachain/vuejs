@@ -1,5 +1,5 @@
 <template>
-    <button :class="`${type ? type : ''} ${disabled ? '_disabled' : ''} ${line ? '_line' : ''} _${ size} ${long ? '_long' : ''}`" v-bind="$attrs" @click="clickHandle">
+    <button :class="`${type ? type : ''} ${disabled ? '_disabled' : ''} ${line ? '_line' : ''} _${ size} ${long ? '_long' : ''}`" v-bind="$attrs" @click="clickHandle" :disabled="disabled">
         <slot></slot>
     </button>
 </template>

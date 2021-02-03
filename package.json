@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@xuperchain/xuper-sdk": "1.1.2",
+    "crypto-js": "^4.0.0",
+    "qs": "^6.9.6"
+  }
+}
