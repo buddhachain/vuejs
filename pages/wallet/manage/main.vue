@@ -1,21 +1,19 @@
 <template>
     <view class="manage-page-cont">
         <view class="_row">
-            <view class="bg-white">
+            <view class="bg-white" @click="$to('/pages/wallet/backup/main?type=1')">
                 备份助记词
             </view>
-            <view class="bg-white">
+            <view class="bg-white" @click="$to('/pages/wallet/backup/main?type=2')">
                 导出私钥
-
             </view>
         </view>
         <view class="_row">
             <view class="bg-white">
                 修改密码
             </view>
-            <view class="bg-white">
+            <view class="bg-white" @click="$to('/pages/wallet/import/main')">
                 导入钱包
-
             </view>
         </view>
     </view>

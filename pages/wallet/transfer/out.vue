@@ -1,6 +1,6 @@
 <template>
     <view class="rollout-page-cont">
-        <CoinBar img="https://s2.feixiaoquan.com/logo/1/bitcoin.png?x-oss-process=style/coin_36_webp" name="BTC" style="border-radius: 8upx" @click="$to('./coinFinance?c=btc')"></CoinBar>
+        <CoinBar img="https://s2.feixiaoquan.com/logo/1/bitcoin.png?x-oss-process=style/coin_36_webp" :name="coinUpper" style="border-radius: 8upx" @click="$to('./coinFinance?c=' + coinUpper)"></CoinBar>
         <view class="transfer-form shadow radius bg-white">
             <!-- addr -->
             <view class="form-group">
@@ -20,7 +20,7 @@
             </view>
             <view class="gas">
                 <text class="gray">矿工费：{{ gas }}</text>
-                <text class="coin_name gray">BUD</text>
+                <text class="coin_name gray">{{ coinUpper }}</text>
             </view>
         </view>
         <!-- passwd -->
@@ -45,7 +45,18 @@
 export default {
     data () {
         return {
-            gas: 0.0001
+            gas: 0.0001,
+            coin: 'bud'
+        }
+    },
+    computed: {
+        coinUpper () {
+            return this.coin.toUpperCase()
+        }
+    },
+    onLoad ({ c }) {
+        if (c) {
+            this.coin = c;
         }
     }
 }

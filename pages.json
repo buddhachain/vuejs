@@ -1,18 +1,19 @@
 {
 	"pages": [
 		{
-			"path": "pages/wallet/backup/main",
-			"style": {
-				"navigationBarTitleText":"备份助记词"
-			}
-		},
-		{
 			"path": "pages/wallet/index/index",
 			"style": {
 				"navigationStyle":"custom",
 				"navigationBarTitleText":"佛界钱包"
 			}
 		},
+		{
+			"path": "pages/wallet/backup/main",
+			"style": {
+				"navigationBarTitleText":"备份助记词"
+			}
+		},
+		
 		{
 			"path": "pages/app/activity/editor",
 			"style": {
@@ -64,7 +65,16 @@
 		{
 			"path": "pages/wallet/transfer/coinFinance",
 			"style": {
-				"navigationBarTitleText": "币种资产"
+				"navigationBarTitleText": "币种资产",
+				"app-plus":{
+					"titleNView": {
+						"buttons": [{
+							"text": "管理",
+							"fontSize":"28upx",
+							"fontWeight":"normal"
+						}]
+					}
+				}
 			}
 		},
 		
