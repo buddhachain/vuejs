@@ -52,6 +52,7 @@
             </view>
             <view>
                 <Button long @click="$to('./in?c=bud')">转入</Button>
+
             </view>
         </view>
     </view>
@@ -110,6 +111,9 @@ export default {
         async getAddressBalance () {
             const r = await this.$API.getBalance(this.address)
             console.log(r)
+        },
+        test () {
+            console.log('end')
         }
     },
 }

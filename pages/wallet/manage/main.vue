@@ -9,7 +9,7 @@
             </view>
         </view>
         <view class="_row">
-            <view class="bg-white">
+            <view class="bg-white" @click="$to('/pages/wallet/create/passwd?t=2')">
                 修改密码
             </view>
             <view class="bg-white" @click="$to('/pages/wallet/import/main')">

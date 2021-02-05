@@ -1,6 +1,6 @@
 <template>
     <view class="input_wrap" :class="`${isError ? '_error' : ''}`">
-        <view class="input_inner" :class="`bg-${bg} ${radius ? 'radius' : ''} ${isActive ? '_active' :''} `">
+        <view class="input_inner" :class="`bg-${bg} ${radius ? 'radius' : ''} ${isActive ? '_active' :''} ${border ? '_border' : ''}`">
             <input class="uni_ipt" @blur="activeChange(false)" @focus="activeChange(true)"  v-bind="$attrs" v-on="$listeners"> 
         </view>
         <view class="err_msg">
@@ -27,6 +27,10 @@ export default {
         errmsg: {
             type: String,
             default: ''
+        },
+        border: {
+            type: Boolean,
+            default: true
         }
     },
     data () {
@@ -62,11 +66,13 @@ export default {
         line-height: 78upx;
         height: 80upx;
         padding: 0 10upx;
-        box-sizing: content-box;
-        border: 1px solid rgba(187, 187, 187, 100);
+        box-sizing: border-box;
         transition: border linear .2s;
         &._active {
         border-color: #ffc829;
+        }
+        &._border {
+            border: 1px solid rgba(187, 187, 187, 100);
         }
         
     }
