@@ -50,17 +50,18 @@
             <Button long v-if="_actions._mnemonic.type === this.type" @click="nextStep">下一步</Button>
             <Button long v-else-if="_actions._privateKey.type === this.type">完成</Button>
         </view>
+        <CheckPasswd @success="successhandle"/>
     </view>
 </template>
 <script>
 import Qs from 'qs'
-import XuperSdk,{  accountIns, Language, Cryptography, Strength } from '@xuperchain/xuper-sdk'
 import { actions, getTipItem } from './actions'
 import { random } from '../../../lib/common'
-import { aesEncrypt } from '../../../lib/crypto'
-import passwordActions from '../../../actions/password'
-const xsdk = new XuperSdk({ node: '', chain: 'xuper' })
+import CheckPasswd from '../../../components/CheckPasswd'
 export default {
+    components: {
+        CheckPasswd
+    },
     data () {
         return {
             type: actions._mnemonic.type,
@@ -80,16 +81,15 @@ export default {
             title: getTipItem(this.type).title
         });
         if (this.type === 1) {
-            this.accountModel = xsdk.createAccount(
-                Language.English,
-                Strength.Middle,
-                Cryptography.EccFIPS
-            );
-            console.log(this.accountModel)
-            console.log(xsdk.accountIns.create( Language.English,
-                Strength.Middle,
-                Cryptography.EccFIPS))
-                console.log(xsdk.accountIns)
+            // this.accountModel = xsdk.createAccount(
+            //     Language.English,
+            //     Strength.Middle,
+            //     Cryptography.EccFIPS
+            // );
+            // console.log(xsdk.accountIns.create( Language.English,
+            //     Strength.Middle,
+            //     Cryptography.EccFIPS))
+            //     console.log(xsdk.accountIns)
         }
     },
     computed: {
@@ -114,6 +114,9 @@ export default {
         }
     },
     methods: {
+        successhandle (passwd) {
+            // 验证密码成功
+        },
         nextStep () {
             const random = this.getRandom()
             const obj = {}
@@ -121,6 +124,7 @@ export default {
                 obj[i + 1] = this.accountModel.mnemonic.split(' ')[i]
             })
             const str = Qs.stringify(obj)
+            console.log(obj)
             // this.$to('/pages/wallet/backup/verify?q=' + aesEncrypt(str, passwordActions.get().substr(0, 8)))
         },
         getRandom () {

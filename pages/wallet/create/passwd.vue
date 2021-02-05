@@ -7,7 +7,6 @@
                     <image v-show="isShowPasswd === false" @click="isShowPasswd = true" src="../../../static/icons/attention.png" mode="" />
                     <image v-show="isShowPasswd === true" @click="isShowPasswd = false" src="../../../static/icons/attention_forbid.png" mode="" />
                 </view>
-                
             </view>
             <view class="passwd-ipt">
                 <Input :value="passwd" type="text" :password="isShowPasswd" placeholder="数字和大小写字母，不少于8位" radius confirm-type="next" :errmsg="passwdErrMsg" @input="$onInput($event, 'passwd')"/>
@@ -30,7 +29,10 @@
     </view>
 </template>
 <script>
+import { xuperSDK, createAccount } from '../../../lib/XuperChainSdk'
 import passwordActions from '../../../actions/password'
+import accountActions from '../../../actions/account'
+import account from '../../../actions/account'
 export default {
     data () {
         return {
@@ -71,8 +73,11 @@ export default {
     methods: {
         confirmCreate () {
             if (this.hasErrors) return;
+            // 此处应该先创建钱包， 使用用户设置的密码将助记词加密后存储到本地；
+            const account = createAccount()
+            accountActions.save(account, this.passwd)
             passwordActions.set(this.passwd);
-            this.$to('/pages/wallet/backup/main?type=1')
+            this.$to('/pages/wallet/transfer/coinFinance?c=bud')
         }
     },
 }

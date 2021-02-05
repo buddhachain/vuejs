@@ -48,19 +48,21 @@
         </view>
         <view class="footer_wrap bg-white">
             <view>
-                <Button long type="white">转出</Button>
+                <Button long type="white" @click="$to('./out?c=bud')">转出</Button>
             </view>
             <view>
-                <Button long>转入</Button>
+                <Button long @click="$to('./in?c=bud')">转入</Button>
             </view>
         </view>
     </view>
 </template>
 <script>
+import accountActions from '../../../actions/account'
 export default {
     data () {
         return {
-            currency: '',
+            address: '',
+            currency: 'bud',
             balance: 123123123123123,
             zhehe_coin: 'usdt'
         }
@@ -76,18 +78,40 @@ export default {
             return this.zhehe_coin.toUpperCase()
         }
     },
+	onNavigationBarButtonTap(e) {
+        // console.log(e)
+        uni.navigateTo({
+             url: '/pages/wallet/manage/main'
+        });
+},
     onLoad ({ c }) {
+        const account = accountActions.get();
+        if (!account.address) {
+            uni.redirectTo({
+                 url: '/pages/wallet/create/passwd'
+            })
+        } else {
+            this.address = account.address;
+        }
         if (!c) {
-            uni.navigateBack({
-                 delta: 2
-            });
+            // uni.navigateBack({
+            //      delta: 2
+            // });
+            c=this.currency;
         } else {
             this.currency = c;
             uni.setNavigationBarTitle({
                 title: c.toUpperCase()
             });
         }
-    }
+        // this.getAddressBalance()
+    },
+    methods: {
+        async getAddressBalance () {
+            const r = await this.$API.getBalance(this.address)
+            console.log(r)
+        }
+    },
 }
 </script>
 <style lang="scss" scoped>

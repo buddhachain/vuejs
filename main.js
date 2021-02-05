@@ -5,6 +5,8 @@ import { to } from './lib/navigate'
 import { toast, toastSucc, copy } from './lib/common'
 // crypto-js
 import { md5Encrypt } from './lib/crypto'
+// api
+import * as API from './service/api'
 
 Vue.config.productionTip = false
 
@@ -30,6 +32,8 @@ Vue.prototype.toastSucc = toastSucc;
 Vue.prototype.$onInput = function (e, key) {
   this[key] = e.detail.value
 }
+
+Vue.prototype.$API = API;
 
 
 // crypto
