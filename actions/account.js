@@ -1,5 +1,7 @@
+import Qs from 'qs'
 import { keys } from '../lib/storage'
 import { aesDecrypt, aesEncrypt } from '../lib/crypto'
+import passwordActions from './password'
 export default {
     save (accountModel, passwd) {
         uni.setStorageSync(keys.mnemonic, this.encrypt(accountModel.mnemonic, passwd))
@@ -18,5 +20,16 @@ export default {
     },
     deCrypt (str, passwd) {
         return aesDecrypt(str, passwd)
+    },
+    saveVerify (obj) {
+        const str = Qs.stringify(obj);
+        return uni.setStorageSync(keys.verify, aesEncrypt(str, passwordActions.get()))
+    },
+    getVerify () {
+        const str = aesDecrypt(uni.getStorageSync(keys.verify), passwordActions.get())
+        return Qs.parse(str)
+    },
+    delVerify () {
+        return uni.removeStorageSync(keys.verify);
     }
 }

@@ -50,22 +50,22 @@
             <Button long v-if="_actions._mnemonic.type === this.type" @click="nextStep">下一步</Button>
             <Button long v-else-if="_actions._privateKey.type === this.type">完成</Button>
         </view>
-        <CheckPasswd @success="successhandle"/>
+        <CheckPasswd v-if="!isSuccess" @success="successhandle"/>
     </view>
 </template>
 <script>
 import Qs from 'qs'
 import { actions, getTipItem } from './actions'
 import { random } from '../../../lib/common'
-import CheckPasswd from '../../../components/CheckPasswd'
+import accountActions from '../../../actions/account'
 export default {
     components: {
-        CheckPasswd
     },
     data () {
         return {
             type: actions._mnemonic.type,
-            accountModel: {}
+            accountModel: {},
+            isSuccess: false
         }
     },
     onLoad ({ type }) {
@@ -80,17 +80,6 @@ export default {
         uni.setNavigationBarTitle({
             title: getTipItem(this.type).title
         });
-        if (this.type === 1) {
-            // this.accountModel = xsdk.createAccount(
-            //     Language.English,
-            //     Strength.Middle,
-            //     Cryptography.EccFIPS
-            // );
-            // console.log(xsdk.accountIns.create( Language.English,
-            //     Strength.Middle,
-            //     Cryptography.EccFIPS))
-            //     console.log(xsdk.accountIns)
-        }
     },
     computed: {
         _actions () {
@@ -116,27 +105,22 @@ export default {
     methods: {
         successhandle (passwd) {
             // 验证密码成功
+            const { mnemonic_lock } = accountActions.get();
+            const mnemonic = accountActions.deCrypt(mnemonic_lock, passwd)
+            console.log(mnemonic)
+            this.accountModel = { mnemonic };
+            this.isSuccess = true;
         },
         nextStep () {
-            const random = this.getRandom()
+            const random = this.$getRandom(0, this.accountModel.mnemonic.split(' ').length, 3)
             const obj = {}
             random.forEach(i => {
                 obj[i + 1] = this.accountModel.mnemonic.split(' ')[i]
             })
-            const str = Qs.stringify(obj)
-            console.log(obj)
-            // this.$to('/pages/wallet/backup/verify?q=' + aesEncrypt(str, passwordActions.get().substr(0, 8)))
+            accountActions.saveVerify(obj)
+            this.$to('/pages/wallet/backup/verify')
         },
-        getRandom () {
-            let arr = []
-            while (arr.length < 3) {
-                const num = random(0, this.accountModel.mnemonic.split(' ').length)
-                if (arr.indexOf(num) === -1) {
-                    arr.push(num)
-                }
-            }
-            return arr.sort((a, b) => a - b)
-        }
+        
     },
 }
 </script>
