@@ -6,7 +6,7 @@
         </view>
         <!-- list -->
         <view class="card_list bg-white">
-            <view class="card_item" v-for="i in 10" :key="i">
+            <view class="card_item" v-for="i in 10" :key="i" @click="goDetails()">
                 <view class="banner">
                     <image src="../../static/pages/app/banner.png" mode="" />
                 </view>
@@ -32,6 +32,22 @@
         </view>
     </view>
 </template>
+<script>
+export default{
+	data(){
+		return{
+			
+		}
+	},
+	methods:{
+		goDetails(){
+			uni.navigateTo({
+				url:'/pages/app/activity/main'
+			})
+		}
+	}
+}
+</script>
 <style lang="scss" scoped>
     .index-page-cont {
         padding: 20upx;

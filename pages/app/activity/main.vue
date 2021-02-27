@@ -207,7 +207,7 @@
                         </view>
                     </view> 
                 </view>
-                <view class="_foot">
+                <view class="_foot" @click="next()">
                     <button>下一步</button>
                 </view>
             </view>
@@ -275,7 +275,12 @@ export default {
             } else {
                 this.$refs.popup.close()
             }
-        }
+        },
+		next(){
+			uni.navigateTo({
+				url:"/pages/app/activity/editor"
+			})
+		}
     },
 }
 </script>

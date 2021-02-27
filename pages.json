@@ -1,32 +1,40 @@
 {
-	"pages": [
-		{
+	"easycom": {
+		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [{
 			"path": "pages/wallet/index/index",
 			"style": {
-				"navigationStyle":"custom",
-				"navigationBarTitleText":"佛界钱包"
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "佛界钱包"
 			}
 		},
 		{
 			"path": "pages/wallet/backup/main",
 			"style": {
-				"navigationBarTitleText":"备份助记词"
+				"navigationBarTitleText": "备份助记词"
 			}
 		},
-		
+
 		{
 			"path": "pages/app/activity/editor",
 			"style": {
 				"navigationBarTitleText": "编辑信息",
-				"backgroundColor":"#ffffff",
+				"backgroundColor": "#ffffff",
 				"navigationBarBackgroundColor": "#ffffff"
+			}
+		},
+		{
+			"path": "pages/app/activity/order",
+			"style": {
+				"navigationBarTitleText": "支付订单"
 			}
 		},
 		{
 			"path": "pages/app/activity/main",
 			"style": {
 				"navigationBarTitleText": "详情",
-				"backgroundColor":"#ffffff",
+				"backgroundColor": "#ffffff",
 				"navigationBarBackgroundColor": "#ffffff"
 			}
 		},
@@ -34,52 +42,52 @@
 			"path": "pages/app/index",
 			"style": {
 				"navigationBarTitleText": "首页",
-				"backgroundColor":"#ffffff",
+				"backgroundColor": "#ffffff",
 				"navigationBarBackgroundColor": "#ffffff"
 			}
-		},{
+		}, {
 			"path": "pages/app/user/main",
 			"style": {
 				"navigationBarTitleText": "我的"
 			}
 		},
-		
+
 		{
 			"path": "pages/wallet/transfer/out",
 			"style": {
-				"navigationBarTitleText":"转出"
+				"navigationBarTitleText": "转出"
 			}
 		},
 		{
 			"path": "pages/wallet/transfer/in",
 			"style": {
-				"navigationBarTitleText":"转入"
+				"navigationBarTitleText": "转入"
 			}
 		},
 		{
 			"path": "pages/wallet/create/passwd",
-			"style":{
+			"style": {
 				"navigationBarTitleText": "创建佛界钱包"
-			}	
+			}
 		},
 		{
 			"path": "pages/wallet/transfer/coinFinance",
 			"style": {
 				"navigationBarTitleText": "币种资产",
-				"app-plus":{
+				"app-plus": {
 					"titleNView": {
 						"buttons": [{
 							"text": "管理",
-							"fontSize":"28upx",
-							"fontWeight":"normal"
+							"fontSize": "28upx",
+							"fontWeight": "normal"
 						}]
 					}
 				}
 			}
 		},
-		
+
 		{
-			"path":"pages/wallet/backup/verify",
+			"path": "pages/wallet/backup/verify",
 			"style": {
 				"navigationBarTitleText": "验证助记词"
 			}
@@ -87,41 +95,76 @@
 		{
 			"path": "pages/wallet/manage/main",
 			"style": {
-				"navigationBarTitleText":"佛界钱包管理"
+				"navigationBarTitleText": "佛界钱包管理"
 			}
 		},
-	
+
 		{
 			"path": "pages/wallet/tip/main",
 			"style": {
-				"navigationBarTitleText":"安全提示"
+				"navigationBarTitleText": "安全提示"
 			}
 		},
-		
-		
+
+
 		{
 			"path": "pages/wallet/import/main",
 			"style": {
 				"navigationBarTitleText": "导入佛界钱包"
+			}
+		},
+		{
+			"path": "pages/blessings/index",
+			"style": {
+				"navigationBarTitleText": "祈福"
+			}
+		},
+		{
+			"path": "pages/practice/index",
+			"style": {
+				"navigationBarTitleText": "修行"
+			}
+		},
+		{
+			"path": "pages/friends/index",
+			"style": {
+				"navigationBarTitleText": "佛友"
 			}
 		}
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "佛界钱包",
-		"navigationBarBackgroundColor": "#f6f7fb",
+		"navigationBarBackgroundColor": "#FFFFFF",
 		"backgroundColor": "#f6f7fb"
 	},
 	"tabBar": {
-        "color":"#73777A",
-        "selectedColor": "#B44446",
-        "backgroundColor": "#FFFFFF",
-        "list": [
-            {
+		"color": "#73777A",
+		"selectedColor": "#B44446",
+		"backgroundColor": "#FFFFFF",
+		"list": [{
 				"pagePath": "pages/app/index",
 				"text": "首页",
 				"iconPath": "static/tabbar/home.svg",
 				"selectedIconPath": "static/tabbar/home-h.svg"
+			},
+			{
+				"pagePath": "pages/blessings/index",
+				"text": "祈福",
+				"iconPath": "static/tabbar/user.svg",
+				"selectedIconPath": "static/tabbar/user-h.svg"
+			},
+			{
+				"pagePath": "pages/practice/index",
+				"text": "修行",
+				"iconPath": "static/tabbar/user.svg",
+				"selectedIconPath": "static/tabbar/user-h.svg"
+			},
+			{
+				"pagePath": "pages/friends/index",
+				"text": "佛友",
+				"iconPath": "static/tabbar/user.svg",
+				"selectedIconPath": "static/tabbar/user-h.svg"
 			},
 			{
 				"pagePath": "pages/app/user/main",
@@ -129,6 +172,6 @@
 				"iconPath": "static/tabbar/user.svg",
 				"selectedIconPath": "static/tabbar/user-h.svg"
 			}
-        ]
-    }
+		]
+	}
 }

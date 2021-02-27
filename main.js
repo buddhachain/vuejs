@@ -9,7 +9,9 @@ import { md5Encrypt } from './lib/crypto'
 import * as API from './service/api'
 
 Vue.config.productionTip = false
-
+// 引入全局uView
+import uView from 'uview-ui';
+Vue.use(uView);
 
 App.mpType = 'app'
 
