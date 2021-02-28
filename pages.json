@@ -46,12 +46,23 @@
 				"navigationBarBackgroundColor": "#ffffff"
 			}
 		}, {
-			"path": "pages/app/user/main",
+			"path": "pages/user/main",
 			"style": {
-				"navigationBarTitleText": "我的"
+				"navigationStyle": "custom"
 			}
 		},
-
+		{
+			"path": "pages/user/ident",
+			"style": {
+				"navigationBarTitleText": "填写认证信息"
+			}
+		},
+		{
+			"path": "pages/user/temple-iden",
+			"style": {
+				"navigationBarTitleText": "资料准备"
+			}
+		},
 		{
 			"path": "pages/wallet/transfer/out",
 			"style": {
@@ -148,26 +159,26 @@
 				"iconPath": "static/tabbar/home.svg",
 				"selectedIconPath": "static/tabbar/home-h.svg"
 			},
+			// {
+			// 	"pagePath": "pages/blessings/index",
+			// 	"text": "祈福",
+			// 	"iconPath": "static/tabbar/user.svg",
+			// 	"selectedIconPath": "static/tabbar/user-h.svg"
+			// },
+			// {
+			// 	"pagePath": "pages/practice/index",
+			// 	"text": "修行",
+			// 	"iconPath": "static/tabbar/user.svg",
+			// 	"selectedIconPath": "static/tabbar/user-h.svg"
+			// },
+			// {
+			// 	"pagePath": "pages/friends/index",
+			// 	"text": "佛友",
+			// 	"iconPath": "static/tabbar/user.svg",
+			// 	"selectedIconPath": "static/tabbar/user-h.svg"
+			// },
 			{
-				"pagePath": "pages/blessings/index",
-				"text": "祈福",
-				"iconPath": "static/tabbar/user.svg",
-				"selectedIconPath": "static/tabbar/user-h.svg"
-			},
-			{
-				"pagePath": "pages/practice/index",
-				"text": "修行",
-				"iconPath": "static/tabbar/user.svg",
-				"selectedIconPath": "static/tabbar/user-h.svg"
-			},
-			{
-				"pagePath": "pages/friends/index",
-				"text": "佛友",
-				"iconPath": "static/tabbar/user.svg",
-				"selectedIconPath": "static/tabbar/user-h.svg"
-			},
-			{
-				"pagePath": "pages/app/user/main",
+				"pagePath": "pages/user/main",
 				"text": "我的",
 				"iconPath": "static/tabbar/user.svg",
 				"selectedIconPath": "static/tabbar/user-h.svg"
