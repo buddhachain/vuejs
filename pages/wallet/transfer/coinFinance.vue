@@ -105,11 +105,11 @@ export default {
                 title: c.toUpperCase()
             });
         }
-        // this.getAddressBalance()
+        this.getAddressBalance()
     },
     methods: {
         async getAddressBalance () {
-            const r = await this.$API.getBalance(this.address)
+			const res =await this.$u.api.walletApi.getBalance(this.address)
             console.log(r)
         },
         test () {

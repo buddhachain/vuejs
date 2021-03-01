@@ -32,7 +32,7 @@
             <Input placeholder="输入佛界钱包密码"/>
         </view>
         <view class="tip">
-            <text class="red">*转账时请注意核对地址，资产一旦转出将无法找回</text>
+            <text class="red">* 转账时请注意核对地址，资产一旦转出将无法找回</text>
         </view>
         <view class="page_footer_wrap">
             <view class="btn_wrap">

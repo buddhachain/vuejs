@@ -17,10 +17,10 @@
         </view>
         <view class="tips">
             <view>
-                <text class="red">*钱包密码用于保护您的私钥，建议设置足够强度的密码</text>
+                <text class="red">* 钱包密码用于保护您的私钥，建议设置足够强度的密码</text>
             </view>
              <view>
-                <text class="red">*钱包密码丢失将无法找回，请务必牢记您设置的密码</text>
+                <text class="red">* 钱包密码丢失将无法找回，请务必牢记您设置的密码</text>
             </view>
         </view>
         <view class="confirm_btn btn_wrap">
@@ -30,10 +30,10 @@
     </view>
 </template>
 <script>
-import { xuperSDK, createAccount } from '../../../lib/XuperChainSdk'
-import passwordActions from '../../../actions/password'
-import accountActions from '../../../actions/account'
-import account from '../../../actions/account'
+import { xuperSDK, createAccount } from '@/lib/XuperChainSdk'
+import passwordActions from '@/actions/password'
+import accountActions from '@/actions/account'
+import account from '@/actions/account'
 export default {
     data () {
         return {
@@ -90,6 +90,7 @@ export default {
             if (this.type === 2 && !oldPasswd) {
                 return this.isShowCheckPassword = true;
             }
+			// 密码md5本地存储
             passwordActions.set(this.passwd);
             if (this.type === 1) {
                 // 此处应该先创建钱包， 使用用户设置的密码将助记词加密后存储到本地；

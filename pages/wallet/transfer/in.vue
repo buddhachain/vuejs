@@ -20,7 +20,7 @@
         </view>
         <view class="danger_text">
             <text class="red">
-                *本地址仅用于接收{{ coinUpper }}，请勿将其他资产转入本地址
+                * 本地址仅用于接收{{ coinUpper }}，请勿将其他资产转入本地址
             </text>
         </view>
     </view>

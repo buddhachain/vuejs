@@ -25,7 +25,7 @@
 			</view>
 			<!-- 充币 -->
 			<view class="u-flex u-row-between money-action">
-				<view class="money-action-item" v-for="(item, index) in moneyAction" :key="index">{{ item.title }}</view>
+				<view class="money-action-item" v-for="(item, index) in moneyAction" :key="index" @click="goTransfer(item.url)">{{ item.title }}</view>
 			</view>
 		</view>
 		<!-- 我的钱包 -->
@@ -82,13 +82,13 @@ export default {
 				background: '#fcf1e2',
 				color: '#933f40'
 			},
-			moneyAction: [{ title: '充币', url: '' }, { title: '提币', url: '' }, { title: '划转', url: '' }, { title: '明细', url: '' }],
+			moneyAction: [{ title: '充币', url: '' }, { title: '提币', url: '' }, { title: '划转', url: '' }, { title: '明细', url: '/pages/wallet/records/records' }],
 			tabList: [
 				{ title: '处理中', url: '', id: 1, icon: 'lock' },
 				{ title: '上传凭证', url: '', id: 2, icon: 'lock' },
 				{ title: '审核', url: '', id: 3, icon: 'lock' },
 				{ title: '待评价', url: '', id: 4, icon: 'lock' },
-				{ title: '全部订单', url: '', id: 4, icon: 'lock' }
+				{ title: '全部订单', url: '', id: 5, icon: 'lock' }
 			],
 			produceList: [
 				{ title: '我的作品', url: '', id: 1, icon: 'lock' },
@@ -118,12 +118,17 @@ export default {
 	methods: {
 		goSetting() {
 			uni.navigateTo({
-				url: '../app/activity/components/wish-pop'
+				url: '/pages/user/setting'
 			});
 		},
 		goMoneyBag() {
 			uni.navigateTo({
-				url: '../app/activity/components/wish-pop'
+				url: '/pages/wallet/transfer/coinFinance'
+			});
+		},
+		goTransfer(url){
+			uni.navigateTo({
+				url: url
 			});
 		}
 	}

@@ -18,9 +18,43 @@
 		</view>
 		<!-- 第二步 -->
 		<view class="u-m-t-40 infor-box-two radius" v-show="currentIndex === 1">
-			<view class="">
+			<view class="box">
 				<view class="title">寺院信息设置</view>
-				<u-field v-model="mobile" border-bottom="false" label="单位名称:" placeholder="请输入单位名称"></u-field>
+				<u-field v-model="mobile" class="field-box" :border-bottom="false" label="单位名称:" placeholder="请输入单位全称"></u-field>
+				<u-field v-model="mobile" class="field-box" :border-bottom="false" label="机构代码:" placeholder="请输入机构代码"></u-field>
+				<view class="dis-text">场所编号或统一信用带代码</view>
+				<u-field v-model="mobile" class="field-box" :border-bottom="false" label="省份城市:" placeholder=""></u-field>
+				<u-field v-model="mobile" class="field-box" :border-bottom="false" label="详细地址:" placeholder=""></u-field>
+				<u-field v-model="mobile" class="field-box" :border-bottom="false" label="寺院法人:" placeholder="请输入真实姓名"></u-field>
+				<u-field v-model="mobile" class="field-box" :border-bottom="false" label="手机号码:" placeholder="请输入法人常用手机号"></u-field>
+				<u-field v-model="mobile" class="field-box" :border-bottom="false" label="电子邮箱:" placeholder="请输入常用的邮箱"></u-field>
+			</view>
+			<view class="box">
+				<view class="title">后台登录设置</view>
+				<view class="u-flex">
+					<text class="sub-title">您是寺院法人？</text>
+					<view class="u-m-l-a change-btn" :class="{ 'active-btn': 1 }">是</view>
+					<view class="change-btn u-m-l-20" :class="{ 'active-btn': 0 }">否</view>
+				</view>
+				<u-field v-model="code" class="field-box" :border-bottom="false" label="" :label-width="0" placeholder="请输入短信验证码">
+					<view slot="right">
+						<u-button
+							size="mini"
+							:ripple="false"
+							:custom-style="{ border: 'none', 'border-left': '1rpx solid #943f3e' }"
+							type="success"
+							hover-class="none"
+							:hair-line="false"
+							class="code-btn"
+							@click="getCode"
+						>
+							{{ codeText }}
+						</u-button>
+						<u-verification-code :seconds="seconds" @end="end" @start="start" ref="uCode" @change="codeChange"></u-verification-code>
+					</view>
+				</u-field>
+				<u-field v-model="mobile" class="field-box" :border-bottom="false" label="登录密码:" placeholder=""></u-field>
+				<u-field v-model="mobile" class="field-box" :border-bottom="false" label="确认密码:" placeholder=""></u-field>
 			</view>
 		</view>
 		<!-- 下一步 -->
@@ -44,12 +78,38 @@ export default {
 				}
 			],
 			src: 'https://cdn.uviewui.com/uview/example/fade.jpg',
-			currentIndex: 0
+			currentIndex: 0,
+			seconds: 60,
+			codeText: '获取验证码'
 		};
 	},
 	methods: {
 		changeCurrentIndex() {
 			this.currentIndex++;
+		},
+		codeChange(text) {
+			this.codeText = text;
+		},
+		getCode() {
+			if (this.$refs.uCode.canGetCode) {
+				// 模拟向后端请求验证码
+				uni.showLoading({
+					title: '正在获取验证码'
+				});
+				setTimeout(() => {
+					uni.hideLoading();
+					// 通知验证码组件内部开始倒计时
+					this.$refs.uCode.start();
+				}, 1000);
+			} else {
+				this.$u.toast('倒计时结束后再发送');
+			}
+		},
+		end() {
+			this.$u.toast('倒计时结束');
+		},
+		start() {
+			this.$u.toast('倒计时开始');
 		}
 	}
 };
@@ -57,7 +117,7 @@ export default {
 
 <style lang="scss">
 .temp-iden {
-	padding: 30rpx;
+	padding: 30rpx 30rpx 100rpx;
 	.infor-box {
 		padding: 30rpx;
 		background-color: #ffffff;
@@ -82,13 +142,53 @@ export default {
 		}
 	}
 	.infor-box-two {
-		padding: 30rpx 20rpx;
 		font-size: 28rpx;
 		color: #111;
-		background-color: #ffffff;
+		.box {
+			padding: 30rpx 20rpx;
+			background-color: #ffffff;
+		}
 		.title {
 			position: relative;
-			padding: 0 20rpx;
+			padding: 0 20rpx 10rpx 0rpx;
+			position: relative;
+			&:after {
+				content: '';
+				height: 30rpx;
+				width: 6rpx;
+				background-color: #943f3e;
+				position: absolute;
+				left: -20rpx;
+				top: 4rpx;
+			}
+		}
+		.field-box {
+			background-color: #f8f8f8;
+			margin-top: 20rpx;
+		}
+		.dis-text {
+			color: #b7a68d;
+			display: flex;
+			justify-content: flex-end;
+			font-size: 26rpx;
+			padding-top: 10rpx;
+		}
+		.change-btn {
+			padding: 0rpx 30rpx;
+			background-color: #999;
+			color: #ffffff;
+			border-radius: 30rpx;
+		}
+		.active-btn {
+			background-color: #943f3e;
+		}
+		.code-btn {
+			background: transparent;
+			color: #943f3e;
+		}
+		.sub-title {
+			color: #555;
+			font-size: 28rpx;
 		}
 	}
 	.temp-iden-btn {

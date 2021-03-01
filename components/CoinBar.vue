@@ -4,8 +4,7 @@
             <image :src="$attrs.img" mode="image" />
             <view>{{ $attrs.name }}</view>
         </view>
-        
-        <view>></view>
+		<u-icon name="arrow-right" color="#999" size="28"></u-icon>
     </view>
 </template>
 <script>

@@ -2,7 +2,10 @@
 	<view class="index-page-cont bg-white">
 		<view class="model_title">
 			<view>祈福佛事</view>
-			<text class="gray">更多 ></text>
+			<view class="gray">
+				<text>更多</text>
+				<u-icon class="u-m-l-4" name="arrow-right" color="#888888" size="28"></u-icon>
+			</view>
 		</view>
 		<!-- list -->
 		<view class="card_list bg-white">
