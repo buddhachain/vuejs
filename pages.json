@@ -147,17 +147,35 @@
 			"style": {
 				"navigationBarTitleText": "佛友"
 			}
+		}, {
+			"path": "pages/wallet/records/records",
+			"style": {
+				"navigationBarTitleText": "交易明细",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/user/identification",
+			"style": {
+				"navigationBarTitleText": "基金会成员认证",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/user/check",
+			"style": {
+				"navigationBarTitleText": "基金会成员",
+				"enablePullDownRefresh": true
+			}
+
+		},
+		{
+			"path": "pages/user/user-infor",
+			"style": {
+				"navigationBarTitleText": "个人资料"
+			}
 		}
-	    ,{
-            "path" : "pages/wallet/records/records",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "交易明细",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "佛界钱包",

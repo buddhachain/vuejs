@@ -23,7 +23,9 @@
 				<u-field v-model="mobile" class="field-box" :border-bottom="false" label="单位名称:" placeholder="请输入单位全称"></u-field>
 				<u-field v-model="mobile" class="field-box" :border-bottom="false" label="机构代码:" placeholder="请输入机构代码"></u-field>
 				<view class="dis-text">场所编号或统一信用带代码</view>
-				<u-field v-model="mobile" class="field-box" :border-bottom="false" label="省份城市:" placeholder=""></u-field>
+				<u-field v-model="mobile" class="field-box" disabled :border-bottom="false" label="省份城市:" placeholder="" @click="regionShow = true">
+					<u-icon slot="right" name="map" color="#999" size="30"></u-icon>
+				</u-field>
 				<u-field v-model="mobile" class="field-box" :border-bottom="false" label="详细地址:" placeholder=""></u-field>
 				<u-field v-model="mobile" class="field-box" :border-bottom="false" label="寺院法人:" placeholder="请输入真实姓名"></u-field>
 				<u-field v-model="mobile" class="field-box" :border-bottom="false" label="手机号码:" placeholder="请输入法人常用手机号"></u-field>
@@ -59,6 +61,8 @@
 		</view>
 		<!-- 下一步 -->
 		<view class="temp-iden-btn"><u-button type="primary" ripple :custom-style="{ background: '#943f3e' }" @click="changeCurrentIndex">下一步</u-button></view>
+		<!-- 地区选择 -->
+		<u-picker mode="region" v-model="regionShow" @confirm="getRegion"></u-picker>
 	</view>
 </template>
 
@@ -80,7 +84,8 @@ export default {
 			src: 'https://cdn.uviewui.com/uview/example/fade.jpg',
 			currentIndex: 0,
 			seconds: 60,
-			codeText: '获取验证码'
+			codeText: '获取验证码',
+			regionShow: false
 		};
 	},
 	methods: {

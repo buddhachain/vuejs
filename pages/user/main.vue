@@ -10,7 +10,7 @@
 		<view class="user-infor">
 			<!-- 头像 -->
 			<view class="u-flex">
-				<u-avatar :size="130" :src="src" mode="circle"></u-avatar>
+				<u-avatar :size="130" :src="src" mode="circle" @click="goUser"></u-avatar>
 				<view class="u-m-l-20" v-if="!true">登录/注册</view>
 				<view class="u-m-l-20" v-else>
 					<view class="">昵称昵称昵称</view>
@@ -129,6 +129,11 @@ export default {
 		goTransfer(url){
 			uni.navigateTo({
 				url: url
+			});
+		},
+		goUser(){
+			uni.navigateTo({
+				url: '/pages/user/user-infor'
 			});
 		}
 	}
