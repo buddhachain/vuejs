@@ -103,15 +103,19 @@ export default {
         }
     },
     methods: {
+		// 验证密码成功后
         successhandle (passwd) {
-            // 验证密码成功
+			console.log(passwd)
+			// 获取加密的助记词
             const { mnemonic_lock } = accountActions.get();
+			console.log(mnemonic_lock)
             const mnemonic = accountActions.deCrypt(mnemonic_lock, passwd)
             console.log(mnemonic)
             this.accountModel = { mnemonic };
             this.isSuccess = true;
         },
         nextStep () {
+			// 随机打乱助记词
             const random = this.$getRandom(0, this.accountModel.mnemonic.split(' ').length, 3)
             const obj = {}
             random.forEach(i => {

@@ -3,8 +3,9 @@ import { keys } from '../lib/storage'
 import { aesDecrypt, aesEncrypt } from '../lib/crypto'
 import passwordActions from './password'
 export default {
+	// 保存账号
     save (accountModel, passwd) {
-        uni.setStorageSync(keys.mnemonic, this.encrypt(accountModel.mnemonic, passwd))
+        uni.setStorageSync(keys.mnemonic, this.encrypt(accountModel.mnemonic, passwd)) //助记词，密码
         uni.setStorageSync(keys.address, accountModel.address)
     },
     get () {
@@ -18,6 +19,7 @@ export default {
     encrypt (mnemonic, passwd) {
         return aesEncrypt(mnemonic, passwd)
     },
+	// 解密助记词
     deCrypt (str, passwd) {
         return aesDecrypt(str, passwd)
     },

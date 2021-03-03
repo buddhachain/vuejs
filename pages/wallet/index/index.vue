@@ -1,7 +1,7 @@
 <template>
 	<view class="page-index-cont">
 		<!-- create wallet -->
-		<!-- <view class="wallet_index_wapper" v-if="address">
+		<view class="wallet_index_wapper" v-if="address">
 			<view class="card_balance">
 				<view class="_tp _flex">
 					<view class="address_wrap text_overflow">{{ this.address }}</view>
@@ -10,35 +10,38 @@
 				<view class="balance_of">￥0.000</view>
 			</view>
 		</view>
-		<template v-else> -->
-		<view class="nav_wrap">
-			<view class="nav-list"><view class="nav-item active">佛界钱包</view></view>
-		</view>
-		<view class="main_body">
-			<view class="wallet-icon"><image src="../../../static/pages/index/wallet.jpg" mode="image" /></view>
-			<view class="info-msg">
-				<view class="_text">
-					创建属于自己的
-					<text>佛界</text>
-					钱包
-				</view>
-				<view class="_text">掌控资产、安全随行</view>
+		<template v-else>
+			<view class="nav_wrap">
+				<view class="nav-list"><view class="nav-item active">佛界钱包</view></view>
 			</view>
-		</view>
-		<view class="create_wallet_btn_box">
-			<Button long style="width:100%" @click="$to('/pages/wallet/create/passwd')">
-				创建
-				<span>佛界</span>
-				钱包
-			</Button>
-		</view>
-		<view class="import_wallet_tip">
-			已有
-			<text>佛界</text>
-			钱包？
-			<text class="yellow" @click="$to('/pages/wallet/import/main')">点此导入钱包</text>
-		</view>
-		<!-- </template> -->
+			<view class="main_body">
+				<view class="wallet-icon"><image src="/static/pages/index/wallet.jpg" mode="image" /></view>
+				<view class="info-msg">
+					<view class="_text">
+						创建属于自己的
+						<text>佛界</text>
+						钱包
+					</view>
+					<view class="_text">掌控资产、安全随行</view>
+				</view>
+			</view>
+			<view class="create_wallet_btn_box">
+			<!-- 	<Button long style="width:100%" @click="$to('/pages/wallet/create/passwd')">
+					创建
+					<span>佛界</span>
+					钱包
+				</Button> -->
+				<u-button type="primary"  @click="$to('/pages/wallet/create/passwd')" ripple shape="circle" size="medium" :custom-style="{ background: '#fcf0ef', width: '200rpx', height: '60rpx', color: '#111' }">
+					确认创建
+				</u-button>
+			</view>
+			<view class="import_wallet_tip">
+				已有
+				<text>佛界</text>
+				钱包？
+				<text class="yellow" @click="$to('/pages/wallet/import/main')">点此导入钱包</text>
+			</view>
+		</template>
 	</view>
 </template>
 

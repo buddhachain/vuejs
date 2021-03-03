@@ -4,8 +4,8 @@
             <view class="_title _flex">
                 <text>{{ title }}</text>
                 <view class="image_wrap">
-                    <image v-show="isShowPasswd === false" @click="isShowPasswd = true" src="../../../static/icons/attention.png" mode="" />
-                    <image v-show="isShowPasswd === true" @click="isShowPasswd = false" src="../../../static/icons/attention_forbid.png" mode="" />
+                    <image v-show="isShowPasswd === false" @click="isShowPasswd = true" src="/static/icons/attention.png" mode="" />
+                    <image v-show="isShowPasswd === true" @click="isShowPasswd = false" src="/static/icons/attention_forbid.png" mode="" />
                 </view>
             </view>
             <view class="passwd-ipt">
@@ -30,7 +30,7 @@
     </view>
 </template>
 <script>
-import { xuperSDK, createAccount } from '@/lib/XuperChainSdk'
+import {  createAccount } from '@/lib/XuperChainSdk'
 import passwordActions from '@/actions/password'
 import accountActions from '@/actions/account'
 import account from '@/actions/account'
@@ -90,11 +90,12 @@ export default {
             if (this.type === 2 && !oldPasswd) {
                 return this.isShowCheckPassword = true;
             }
-			// 密码md5本地存储
+			// 密码md5本地存储 （pw)
             passwordActions.set(this.passwd);
             if (this.type === 1) {
                 // 此处应该先创建钱包， 使用用户设置的密码将助记词加密后存储到本地；
                 const account = createAccount()
+				console.log(account)
                 accountActions.save(account, this.passwd)
                 this.$to('/pages/wallet/transfer/coinFinance?c=bud')
             } else if (this.type === 2) {
