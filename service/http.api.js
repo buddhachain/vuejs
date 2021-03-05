@@ -45,11 +45,30 @@ const install = (Vue, vm) => {
 			return vm.$u.get(`/v1/practise/sutra/history`)
 		},
 	}
-
+	// 用户信息
+	const userApi = {
+		// 上传用户信息
+		postUser(params) {
+			return vm.$u.post(`/v1/user`, params)
+		},
+		// 修改昵称
+		postUserNickname(params) {
+			return vm.$u.put(`/v1/user/nickname`, params)
+		},
+		// 更新用户头像
+		postUserImage(params) {
+			return vm.$u.put(`/v1/user/image`, params)
+		},
+		// 获取用户佛经分类信息
+		getUser(params) {
+			return vm.$u.get(`/v1/user`, params)
+		},
+	}
 	// 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
 	vm.$u.api = {
 		walletApi,
-		buddhistApi
+		buddhistApi,
+		userApi
 	};
 }
 

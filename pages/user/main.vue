@@ -11,11 +11,11 @@
 			<!-- 头像 -->
 			<view class="u-flex">
 				<u-avatar :size="130" :src="src" mode="circle" @click="goUser"></u-avatar>
-				<view class="u-m-l-20" v-if="!true">登录/注册</view>
-				<view class="u-m-l-20" v-else>
-					<view class="">昵称昵称昵称</view>
-					<view class="">角色</view>
+				<view class="u-m-l-20" v-if="userInfor.id">
+					<view class="">{{ userInfor.nickname || '未设置昵称' }}</view>
+					<!-- <view class="">角色</view> -->
 				</view>
+				<view class="u-m-l-20" v-else>登录/注册</view>
 				<view class="u-m-l-a">
 					<u-button type="primary" ripple shape="circle" size="mini" :custom-style="customStyle">
 						<text>个人主页</text>
@@ -32,9 +32,9 @@
 		<my-card title="我的钱包" class="my-active" @head-click="goMoneyBag">
 			<view class="money-bag">
 				<view class="title">般若钻余额（BUD）</view>
-				<view class="money">12456445521255</view>
+				<view class="money">{{ balance }}</view>
 				<view class="title">钱包地址</view>
-				<view class="adezrss">0x058a084019a7678b449b80200a42cba23f0a87f30x058a084019a7678b449b80200a42cba23</view>
+				<view class="adezrss">{{ userInfor.account }}</view>
 			</view>
 			<!-- card 购买 出售 -->
 			<view class="u-flex u-row-center user-buy">
@@ -95,7 +95,9 @@ export default {
 				{ title: '点赞视频', url: '', id: 2, icon: 'lock' },
 				{ title: '我的关注', url: '', id: 3, icon: 'lock' },
 				{ title: '我的粉丝', url: '', id: 4, icon: 'lock' }
-			]
+			],
+			userInfor: '',
+			balance: 0
 		};
 	},
 	computed: {
@@ -105,6 +107,9 @@ export default {
 			};
 			return obj;
 		}
+	},
+	onLoad() {
+		this.getUserDtails();
 	},
 	onPageScroll(e) {
 		let t = e.scrollTop / 50;
@@ -126,15 +131,26 @@ export default {
 				url: '/pages/wallet/transfer/coinFinance'
 			});
 		},
-		goTransfer(url){
+		goTransfer(url) {
 			uni.navigateTo({
 				url: url
 			});
 		},
-		goUser(){
+		goUser() {
 			uni.navigateTo({
 				url: '/pages/user/user-infor'
 			});
+		},
+		// user
+		async getUserDtails() {
+			const res = await this.$u.api.userApi.getUser();
+			this.userInfor = res;
+			this.getBalance(res.account);
+		},
+		// balance
+		async getBalance(account) {
+			const balance = await this.$u.api.walletApi.getBalance(account);
+			this.balance = balance;
 		}
 	}
 };

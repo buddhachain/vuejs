@@ -16,24 +16,29 @@
 
 <script>
 export default {
+	data() {
+		return {
+		};
+	},
+	onLoad() {
+	},
 	methods: {
 		logout() {
 			uni.showModal({
 				content: '退出登录',
 				success: function(res) {
 					if (res.confirm) {
-						
 					} else if (res.cancel) {
 						console.log('用户点击取消');
 					}
 				}
 			});
 		},
-		changePwd(){
+		changePwd() {
 			uni.navigateTo({
-				url:'/pages/wallet/create/passwd?t=2'
-			})
-		}
+				url: '/pages/wallet/create/passwd?t=2'
+			});
+		},
 	}
 };
 </script>

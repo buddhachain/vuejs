@@ -31,7 +31,7 @@
 					<span>佛界</span>
 					钱包
 				</Button> -->
-				<u-button type="primary"  @click="$to('/pages/wallet/create/passwd')" ripple shape="circle" size="medium" :custom-style="{ background: '#fcf0ef', width: '200rpx', height: '60rpx', color: '#111' }">
+				<u-button type="primary"  @click="$to('/pages/wallet/create/passwd')" ripple shape="circle" size="medium" :custom-style="{ width: '300rpx', height: '80rpx', color: '#fff' }">
 					确认创建
 				</u-button>
 			</view>

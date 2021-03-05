@@ -50,7 +50,7 @@
 			<view>
 				<!-- $to('./out?c=bud') -->
 				<Button long type="white" @click="out">转出</Button>
-				<Button long type="white" @click="test">test</Button>
+				<!-- <Button long type="white" @click="test">test</Button> -->
 			</view>
 			<view><Button long @click="$to('./in?c=bud')">转入</Button></view>
 		</view>

@@ -9,6 +9,7 @@ const statusObj = {
 		// return res.data;
 	}
 }
+import accountActions from '@/actions/account.js'
 const install = (Vue, vm) => {
 	Vue.prototype.$u.http.setConfig({
 		baseUrl: baseURL,
@@ -25,7 +26,9 @@ const install = (Vue, vm) => {
 	});
 	// 请求拦截，配置Token等参数
 	Vue.prototype.$u.http.interceptor.request = (config) => {
-		config.header.Token = 'xxxxxx';
+		const user = accountActions.get();
+		config.header.user = user.address
+		// config.header.Token = 'xxxxxx';
 
 		// 方式一，存放在vuex的token，假设使用了uView封装的vuex方式，见：https://uviewui.com/components/globalVariable.html
 		// config.header.token = vm.token;
@@ -45,12 +48,16 @@ const install = (Vue, vm) => {
 	// 响应拦截，判断状态码是否通过
 	Vue.prototype.$u.http.interceptor.response = (res) => {
 		// statusObj[res.code]
-		// if (res.code == 0) {
+		if (res.errCode == 0) {
 			console.log(res)
 			return res.data;
-		// } else {
-		// 	return false;
-		// }
+		} else {
+			uni.showToast({
+				title: res.errMsg,
+				icon: "none"
+			})
+			return false;
+		}
 	}
 }
 
