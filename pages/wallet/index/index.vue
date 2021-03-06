@@ -11,9 +11,10 @@
 			</view>
 		</view>
 		<template v-else>
-			<view class="nav_wrap">
+		<!-- 	<view class="nav_wrap">
 				<view class="nav-list"><view class="nav-item active">佛界钱包</view></view>
-			</view>
+			</view> -->
+			<u-navbar title="佛界钱包" :is-back="false" title-color="#111"></u-navbar>
 			<view class="main_body">
 				<view class="wallet-icon"><image src="/static/pages/index/wallet.jpg" mode="image" /></view>
 				<view class="info-msg">
@@ -26,12 +27,12 @@
 				</view>
 			</view>
 			<view class="create_wallet_btn_box">
-			<!-- 	<Button long style="width:100%" @click="$to('/pages/wallet/create/passwd')">
+				<!-- 	<Button long style="width:100%" @click="$to('/pages/wallet/create/passwd')">
 					创建
 					<span>佛界</span>
 					钱包
 				</Button> -->
-				<u-button type="primary"  @click="$to('/pages/wallet/create/passwd')" ripple shape="circle" size="medium" :custom-style="{ width: '300rpx', height: '80rpx', color: '#fff' }">
+				<u-button type="primary" @click="goCreate" ripple shape="circle" size="medium" :custom-style="{ width: '300rpx', height: '80rpx', color: '#fff' }">
 					确认创建
 				</u-button>
 			</view>
@@ -60,6 +61,20 @@ export default {
 			uni.reLaunch({
 				url: '/pages/app/index'
 			});
+		}
+	},
+	methods: {
+		goCreate() {
+			// #ifndef  H5
+			uni.navigateTo({
+				url: '../create/passwd-app'
+			});
+			// #endif
+			// #ifdef H5
+			uni.navigateTo({
+				url: '../create/passwd'
+			});
+			// #endif
 		}
 	}
 };

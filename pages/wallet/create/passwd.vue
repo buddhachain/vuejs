@@ -1,5 +1,6 @@
 <template>
 	<view class="c-passwd-page-cont">
+		<!-- <u-navbar  title="创建钱包" :border-bottom="false" title-color="#111"></u-navbar> -->
 		<view class="card_body bg-white radius shadow">
 			<view class="_title _flex">
 				<text>{{ title }}</text>
@@ -35,7 +36,9 @@
 			<view><text class="red">* 钱包密码用于保护您的私钥，建议设置足够强度的密码</text></view>
 			<view><text class="red">* 钱包密码丢失将无法找回，请务必牢记您设置的密码</text></view>
 		</view>
-		<u-button type="primary" @click="confirmCreate" :loading="isLoading" ripple shape="circle" :custom-style="{ height: '80rpx', color: '#fff' }">确认创建</u-button>
+		<u-button type="primary" :disabled="hasErrors" @click="confirmCreate" ripple shape="circle" :custom-style="{ height: '80rpx', color: '#fff' }">
+			确认创建
+		</u-button>
 		<CheckPasswd v-if="isShowCheckPassword" title="原钱包密码" @success="confirmCreate" />
 	</view>
 </template>
@@ -55,17 +58,16 @@ export default {
 			isShowPasswd: true,
 			type: 1,
 			isShowCheckPassword: false,
-			isLoading:false
+			isLoading: false
 		};
 	},
 	computed: {
 		hasErrors() {
-			return (
-				Boolean(this.passwdErrMsg) ||
-				Boolean(this.confirmErrMsg) ||
-				(!Boolean(this.passwd) || this.passwd.length < 8) ||
-				(!Boolean(this.confirm) || this.confirm.length < 8)
-			);
+			if (this.passwd === this.confirm && this.confirm.length > 7 && this.confirmErrMsg == '') {
+				return false;
+			} else {
+				return true;
+			}
 		},
 		title() {
 			return this.type === 1 ? '设置钱包密码' : '修改钱包密码';
@@ -121,14 +123,20 @@ export default {
 			if (this.type === 2 && !oldPasswd) {
 				return (this.isShowCheckPassword = true);
 			}
+
 			// 密码md5本地存储 （pw)
-			passwordActions.set(this.passwd);
 			if (this.type === 1) {
 				// 此处应该先创建钱包， 使用用户设置的密码将助记词加密后存储到本地；
 				const account = createAccount();
-				console.log(account)
+				uni_new.postMessage({
+					data: {
+						passwd: this.passwd,
+						account
+					}
+				});
+				console.log(account);
 				accountActions.save(account, this.passwd);
-				await this.postUser(account)
+				await this.postUser(account);
 				this.$to('/pages/wallet/transfer/coinFinance?c=bud');
 			} else if (this.type === 2) {
 				// 如果是修改钱包密码
@@ -152,20 +160,21 @@ export default {
 					});
 				});
 			}
+			passwordActions.set(this.passwd);
 		},
-		async postUser({address}){
-			this.isLoading = true
+		async postUser({ address }) {
+			this.isLoading = true;
 			let obj = {
-				account:address,
-				nickname:'',
-				image:'',
-				sex:true,	
-				email:'',		
-				phone:'',	
-				address:''
-			}
-			let res = await this.$u.api.userApi.postUser(obj)
-			this.isLoading = false
+				account: address,
+				nickname: '',
+				image: '',
+				sex: true,
+				email: '',
+				phone: '',
+				address: ''
+			};
+			let res = await this.$u.api.userApi.postUser(obj);
+			this.isLoading = false;
 		}
 	}
 };

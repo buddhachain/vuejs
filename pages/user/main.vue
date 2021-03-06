@@ -1,6 +1,6 @@
 <template>
 	<view class="user">
-		<u-navbar back-icon-name="setting" :custom-back="goSetting" :border-bottom="false" back-icon-color="#fff" immersive :background="background">
+		<u-navbar back-icon-name="setting" :custom-back="goSetting" :border-bottom="false" back-icon-color="#fff"  :background="background">
 			<view class="nav-right" slot="right">
 				<u-icon class="u-m-r-10" name="star" color="#fff" size="38"></u-icon>
 				<u-icon name="grid" color="#fff" size="38"></u-icon>
@@ -103,7 +103,7 @@ export default {
 	computed: {
 		background() {
 			let obj = {
-				backgroundColor: `rgba(147,63,64,${this.toolbarOpacity})`
+				backgroundColor:'#943f3e'// `rgba(147,63,64,${this.toolbarOpacity})`
 			};
 			return obj;
 		}
@@ -162,8 +162,8 @@ export default {
 		padding-right: 24rpx;
 	}
 	.user-infor {
-		padding: 100rpx 30rpx 30rpx;
-		height: 360rpx;
+		padding: 10rpx 30rpx 30rpx;
+		height: 300rpx;
 		background-color: #943f3e;
 		font-size: 28rpx;
 		color: #ffffff;

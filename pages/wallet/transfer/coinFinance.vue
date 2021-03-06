@@ -47,12 +47,11 @@
 			</view>
 		</view>
 		<view class="footer_wrap bg-white">
-			<view>
-				<!-- $to('./out?c=bud') -->
-				<Button long type="white" @click="out">转出</Button>
-				<!-- <Button long type="white" @click="test">test</Button> -->
-			</view>
-			<view><Button long @click="$to('./in?c=bud')">转入</Button></view>
+			<!-- $to('./out?c=bud') -->
+			<!-- <Button long type="white" @click="out">转出</Button> -->
+			<!-- <Button long type="white" @click="test">test</Button> -->
+			<u-button class="u-flex-1 u-m-r-20" type="primary" @click="out" ripple :custom-style="{ color: '#fff' }">转出</u-button>
+			<u-button class="u-flex-1" type="warning" @click="$to('./in?c=bud')" ripple :custom-style="{ color: '#fff' }">转入</u-button>
 		</view>
 	</view>
 </template>
@@ -141,15 +140,18 @@ export default {
 				fee: '0',
 				desc: '121312'
 			};
-			
+
 			// xuperSDK.makeTransaction('VzNkMVJlZVBVNTJ4SnVGVHV1VlU0VW5nN3lWQUN5aVRi', 'qLzGNkoBvU4xTeBKWztUfuKnj6nc1OdzoFFbbpEbGi0', ud);
 			// const tx = xuperSDK.makeTransaction (ti,{fee:''},{});
-			const res = xuperSDK.getBalance('RtVvkrb1653VA1wST8mLUM5YGyMdhy5is')
-			console.log(res)
+			const res = xuperSDK.getBalance('RtVvkrb1653VA1wST8mLUM5YGyMdhy5is');
+			console.log(res);
 			// test()
 		},
 		async out() {
-			await this.$u.api.walletApi.postPretx({ account: 'W3d1ReePU52xJuFTuuVU4Ung7yVACyiTb', amount: '1', desc: '121312' });
+			uni.navigateTo({
+				url:'./out'
+			})
+			// await this.$u.api.walletApi.postPretx({ account: 'W3d1ReePU52xJuFTuuVU4Ung7yVACyiTb', amount: '1', desc: '121312' });
 		}
 	}
 };
@@ -162,6 +164,7 @@ export default {
 		display: flex;
 		justify-content: space-between;
 		height: 100upx;
+		align-items: center;
 		position: fixed;
 		left: 0;
 		bottom: 0;
@@ -169,12 +172,6 @@ export default {
 		z-index: 99;
 		padding: 0 30upx;
 		box-sizing: border-box;
-		> view {
-			width: 45%;
-			height: 100%;
-			display: flex;
-			align-items: center;
-		}
 	}
 	.coin_card {
 		padding: 26upx;

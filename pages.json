@@ -48,7 +48,8 @@
 		}, {
 			"path": "pages/user/main",
 			"style": {
-				"navigationStyle": "custom"
+				"navigationStyle": "custom",
+				"backgroundColorTop":"#943f3e"
 			}
 		},
 		{
@@ -84,7 +85,13 @@
 		{
 			"path": "pages/wallet/create/passwd",
 			"style": {
-				"navigationBarTitleText": "创建佛界钱包"
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/wallet/create/passwd-app",
+			"style": {
+				"navigationBarTitleText": "创建钱包"
 			}
 		},
 		{

@@ -51,8 +51,8 @@ export default {
 			nikeName: '',
 			isLoading: false,
 			sex: '',
-			type:0,
-			phone:'',
+			type: 0,
+			phone: '',
 			list: [
 				{
 					name: '女',
@@ -128,7 +128,10 @@ export default {
 		},
 		// save
 		async save() {
-			const res = await this.$u.api.userApi.postUserNickname({ nickname: this.nikeName });
+			let res;
+			res = await this.$u.api.userApi.postUserNickname({ nickname: this.nikeName });
+			res = await this.$u.api.userApi.postUserNickname({ nickname: this.nikeName });
+			res = await this.$u.api.userApi.postUserNickname({ nickname: this.nikeName });
 			this.show = false;
 			this.userInfor = res;
 		},

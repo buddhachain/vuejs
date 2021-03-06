@@ -29,9 +29,10 @@
     </view>
 </template>
 <script>
-import account from '../../../actions/account'
-import accountActions from '../../../actions/account'
-import { createAccount } from '../../../lib/XuperChainSdk'
+import account from '@/actions/account'
+import accountActions from '@/actions/account'
+import PasswordActions from '@/actions/password.js'
+import { createAccount } from '@/lib/XuperChainSdk'
 export default {
     data () {
         return {
@@ -68,7 +69,14 @@ export default {
     },
     onLoad () {
         const verify = accountActions.getVerify()
-        const { mnemonic } = createAccount();
+        // const { mnemonic } = createAccount();
+		
+		// const pwd = PasswordActions.getNoPwd()
+		// console.log(pwd)
+		const { mnemonic_lock } = accountActions.get();
+		const mnemonic = accountActions.deCrypt(mnemonic_lock, 'cjm123456');
+		
+		console.log(mnemonic)
         const newAccountMnemonicArr = mnemonic.split(' ')
         const randomArr = this.$getRandom(0, newAccountMnemonicArr.length, 3)
         const verifyValues = Object.values(verify);
@@ -77,6 +85,22 @@ export default {
         })
         this.mnemonic = newAccountMnemonicArr.join(' ');
         this.verifyObj = verify;
+		
+		// const verify = accountActions.getVerify()
+		// const pwd = PasswordActions.get()
+		// const { mnemonic_lock } = accountActions.get();
+		// const accountModel = accountActions.deCrypt(mnemonic_lock, pwd);
+		// console.log(accountModel)
+		// const { mnemonic } = accountModel
+		// console.log(mnemonic)
+		// const newAccountMnemonicArr = mnemonic.split(' ')
+		// const randomArr = this.$getRandom(0, newAccountMnemonicArr.length, 3)
+		// const verifyValues = Object.values(verify);
+		// randomArr.forEach((_idx, i) => {
+		//     newAccountMnemonicArr[_idx] = verifyValues[i]
+		// })
+		// this.mnemonic = newAccountMnemonicArr.join(' ');
+		// this.verifyObj = verify;
     },
     methods: {
         strClickHandle (str) {
