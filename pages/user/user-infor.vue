@@ -7,7 +7,7 @@
 				</u-cell-item>
 				<u-cell-item title="昵称" :value="userInfor.nickname || '未设置昵称'" @click="showPop(1)"></u-cell-item>
 				<u-cell-item title="性别" :value="userInfor.sex ? '男' : '女'" @click="showPop(2)"></u-cell-item>
-				<u-cell-item title="手机号" :value="userInfor.phone || '未设置'" @click="showPop(3)"></u-cell-item>
+				<!-- <u-cell-item title="手机号" :value="userInfor.phone || '未设置'" @click="showPop(3)"></u-cell-item> -->
 			</u-cell-group>
 		</view>
 		<!-- nikname -->
@@ -19,7 +19,7 @@
 						<u-radio @change="radioChange" v-for="(item, index) in list" :key="index" :name="item.name">{{ item.name }}</u-radio>
 					</u-radio-group>
 				</view>
-				<u-field v-model="phone" :label-width="0" placeholder="请输入新昵称" v-if="type == 3"></u-field>
+				<!-- <u-field v-model="phone" :label-width="0" placeholder="请输入" v-if="type == 3"></u-field> -->
 				<u-button
 					type="primary"
 					class="u-m-t-30"
@@ -28,7 +28,6 @@
 					ripple
 					shape="circle"
 					size="mini"
-					:disabled="!nikeName"
 					:custom-style="{ width: '200rpx', height: '60rpx', color: '#fff' }"
 				>
 					保存
@@ -44,13 +43,15 @@ export default {
 	data() {
 		return {
 			userInfor: {
-				cid: ''
+				cid: '',
+				userInfor:'',
+				sex:true
 			},
 			src: '',
 			show: false,
 			nikeName: '',
 			isLoading: false,
-			sex: '',
+			sex: '男',
 			type: 0,
 			phone: '',
 			list: [
@@ -130,10 +131,10 @@ export default {
 		async save() {
 			let res;
 			res = await this.$u.api.userApi.postUserNickname({ nickname: this.nikeName });
-			res = await this.$u.api.userApi.postUserNickname({ nickname: this.nikeName });
-			res = await this.$u.api.userApi.postUserNickname({ nickname: this.nikeName });
+			// res = await this.$u.api.userApi.postUserNickname({ nickname: this.nikeName });
+			// res = await this.$u.api.userApi.postUserNickname({ nickname: this.nikeName });
 			this.show = false;
-			this.userInfor = res;
+			this.userInfor.nikeName = nikeName;
 		},
 		showPop(num) {
 			this.show = true;

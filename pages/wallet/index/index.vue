@@ -40,7 +40,7 @@
 				已有
 				<text>佛界</text>
 				钱包？
-				<text class="yellow" @click="$to('/pages/wallet/import/main')">点此导入钱包</text>
+				<text class="yellow" @click="goImport()">点此导入钱包</text>
 			</view>
 		</template>
 	</view>
@@ -55,13 +55,7 @@ export default {
 		};
 	},
 	onLoad() {
-		const { address } = accountActions.get();
-		this.address = address;
-		if (address) {
-			uni.reLaunch({
-				url: '/pages/app/index'
-			});
-		}
+
 	},
 	methods: {
 		goCreate() {
@@ -73,6 +67,18 @@ export default {
 			// #ifdef H5
 			uni.navigateTo({
 				url: '../create/passwd'
+			});
+			// #endif
+		},
+		goImport(){
+			// #ifndef  H5
+			uni.navigateTo({
+				url: '/pages/wallet/import/main-app'
+			});
+			// #endif
+			// #ifdef H5
+			uni.navigateTo({
+				url: '/pages/wallet/import/main'
 			});
 			// #endif
 		}

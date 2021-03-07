@@ -36,9 +36,7 @@
 			<view><text class="red">* 钱包密码用于保护您的私钥，建议设置足够强度的密码</text></view>
 			<view><text class="red">* 钱包密码丢失将无法找回，请务必牢记您设置的密码</text></view>
 		</view>
-		<u-button type="primary" :disabled="hasErrors" @click="confirmCreate" ripple shape="circle" :custom-style="{ height: '80rpx', color: '#fff' }">
-			确认创建
-		</u-button>
+		<u-button type="primary" :disabled="hasErrors" @click="confirmCreate" ripple shape="circle" :custom-style="{ height: '80rpx', color: '#fff' }">确认创建</u-button>
 		<CheckPasswd v-if="isShowCheckPassword" title="原钱包密码" @success="confirmCreate" />
 	</view>
 </template>
@@ -58,7 +56,8 @@ export default {
 			isShowPasswd: true,
 			type: 1,
 			isShowCheckPassword: false,
-			isLoading: false
+			isLoading: false,
+			isApp: ''
 		};
 	},
 	computed: {
@@ -73,8 +72,9 @@ export default {
 			return this.type === 1 ? '设置钱包密码' : '修改钱包密码';
 		}
 	},
-	onLoad({ t = 1 }) {
+	onLoad({ t = 1, isApp = 0 }) {
 		this.type = Number(t);
+		this.isApp = isApp;
 		if (this.type === 2) {
 			uni.setNavigationBarTitle({
 				title: '修改钱包密码'
@@ -128,16 +128,20 @@ export default {
 			if (this.type === 1) {
 				// 此处应该先创建钱包， 使用用户设置的密码将助记词加密后存储到本地；
 				const account = createAccount();
-				uni_new.postMessage({
-					data: {
-						passwd: this.passwd,
-						account
-					}
-				});
-				console.log(account);
-				accountActions.save(account, this.passwd);
-				await this.postUser(account);
-				this.$to('/pages/wallet/transfer/coinFinance?c=bud');
+				if (this.isApp) {
+					uni_new.postMessage({
+						data: {
+							passwd: this.passwd,
+							account
+						}
+					});
+				} else {
+					accountActions.save(account, this.passwd);
+					await this.postUser(account);
+					uni.reLaunch({
+						url:'/pages/app/index'
+					})
+				}
 			} else if (this.type === 2) {
 				// 如果是修改钱包密码
 				// 应该先取出使用旧密码加密过的

@@ -1,5 +1,5 @@
 <template>
-	<view><web-view src="http://192.168.0.105:8080/#/pages/wallet/create/passwd" @message="message"></web-view></view>
+	<view><web-view src="http://192.168.0.105:8080/#/pages/wallet/create/passwd?isApp=1" @message="message"></web-view></view>
 </template>
 <script>
 import passwordActions from '@/actions/password';
@@ -26,7 +26,7 @@ export default {
 			console.log(account);
 			accountActions.save(account, passwd);
 			await this.postUser(account);
-			this.$to('/pages/wallet/transfer/coinFinance?c=bud');
+			this.$to('/pages/app/index');
 		},
 		async confirmCreate(oldPasswd) {
 			if (this.passwdErrMsg || this.confirmErrMsg) return;

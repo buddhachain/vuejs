@@ -143,7 +143,11 @@ export default {
 		},
 		// user
 		async getUserDtails() {
+		
 			const res = await this.$u.api.userApi.getUser();
+			// uni.showToast({
+			// 	title:'2222'
+			// })
 			this.userInfor = res;
 			this.getBalance(res.account);
 		},

@@ -34,20 +34,27 @@
 	</view>
 </template>
 <script>
-export default{
-	data(){
-		return{
-
+import accountActions from '@/actions/account';
+export default {
+	data() {
+		return {};
+	},
+	onLoad() {
+		const { address } = accountActions.get();
+		if (!address) {
+			uni.reLaunch({
+				url: '/pages/wallet/index/index'
+			});
 		}
 	},
-	methods:{
-		goDetails(){
+	methods: {
+		goDetails() {
 			uni.navigateTo({
-				url:'/pages/app/activity/main'
-			})
+				url: '/pages/app/activity/main'
+			});
 		}
 	}
-}
+};
 </script>
 <style lang="scss" scoped>
 .index-page-cont {

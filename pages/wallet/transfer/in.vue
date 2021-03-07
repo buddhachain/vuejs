@@ -15,7 +15,7 @@
                 {{ address }}
             </view>
             <view class="cp_addr">
-                <Button line size="small" @click="$copy(address)">复制地址</Button>
+				<u-button type="primary" plain shape="circle" ripple @click="$copy(address)" size="mini"  :custom-style="{ width: '280rpx', color: '#fff' }">复制地址</u-button>
             </view>
         </view>
         <view class="danger_text">

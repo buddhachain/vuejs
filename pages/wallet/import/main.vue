@@ -2,11 +2,12 @@
 	<view class="import-page-cont">
 		<view class="main_body bg-white">
 			<view class="tab_wrap">
-				<view class="tab_item" v-for="(text, i) in tabs" :key="i" @click="tabCurr = i" :class="{ 'bg-white active': tabCurr === i }">助记词导入</view>
+				<view class="tab_item" v-for="(text, i) in tabs" :key="i" @click="tabCurr = i" :class="{ 'bg-white active': tabCurr === i }">{{ text }}</view>
 			</view>
 			<view class="content">
 				<view class="tip_text">{{ tipText }}</view>
-				<view class="input_area bg-none"><textarea placeholder="请输入助记词，单词之间以空格分开" @input="$onInput($event, 'mnemonic')"></textarea></view>
+				<view class="input_area bg-none" v-if="tabCurr == 0"><textarea placeholder="请输入助记词，单词之间以空格分开" v-model="mnemonic"></textarea></view>
+				<view class="input_area bg-none" v-else><textarea placeholder="请输入私钥明文" v-model="address"></textarea></view>
 				<view class="tip_text passwd">
 					<view>设置钱包密码</view>
 					<view class="image_wrap">
@@ -14,37 +15,8 @@
 						<image v-show="isPassword == 'password'" @click="isPassword = 'text'" src="/static/icons/attention_forbid.png" mode="" />
 					</view>
 				</view>
-				<view class="set_passwd">
-					<!-- <input type="text" :password="isPassword" placeholder="输入初始HD钱包密码，数字和大小写字母，不少于8位" @input="$onInput($event, 'password')"> -->
-				<!-- 	<Input
-						:value="passwd"
-						:border="false"
-						type="text"
-						:password="isPassword"
-						placeholder="输入初始钱包密码，数字和大小写字母，不少于8位"
-						radius
-						confirm-type="next"
-						:errmsg="passwderrmsg"
-						@input="$onInput($event, 'passwd')"
-					/> -->
-					<u-input v-model="passwd"  border :type="isPassword"/>
-				</view>
-				<view class="set_passwd">
-					<!-- <input type="text" :password="isPassword" placeholder="" @input="$onInput($event, 'confirm')"> -->
-		<!-- 			<Input
-						:value="confirm"
-						:border="false"
-						type="text"
-						:password="isPassword"
-						placeholder="再次输入您设置的钱包密码"
-						radius
-						confirm-type="next"
-						:errmsg="confirmerrmsg"
-						@input="$onInput($event, 'confirm')"
-					/> -->
-					<!-- <u-field v-model="confirm" label="验证码" placeholder="请填写验证码"></u-field> -->
-					<u-input v-model="confirm"  border :type="isPassword"/>
-				</view>
+				<view class="set_passwd"><u-input v-model="passwd" border :type="isPassword" :password-icon="false" /></view>
+				<view class="set_passwd"><u-input v-model="confirm" border :type="isPassword" :password-icon="false" /></view>
 			</view>
 		</view>
 		<view class="tip_danger">
@@ -55,81 +27,99 @@
 			</text>
 		</view>
 		<view class="page_footer_wrap bg-white btn_wrap" style="width:100%">
-			<!-- <Button long style="width: 100%" @click="startHandle" :disabled="hasErrors">开始导入</Button> -->
 			<u-button type="primary" @click="startHandle" ripple :custom-style="{ height: '80rpx', color: '#fff' }">开始导入</u-button>
 		</view>
 	</view>
 </template>
 <script>
-import { xuperSDK, Language, Strength, Cryptography } from '@/lib/XuperChainSdk';
-import accountActions from '../../../actions/account';
-import passwordActions from '../../../actions/password';
+import { revertAccount, checkAccount, checkAddress } from '@/lib/XuperChainSdk';
+import accountActions from '@/actions/account';
+import passwordActions from '@/actions/password';
 export default {
 	data() {
 		return {
 			tabCurr: 0,
-			tabs: ['助记词导入', '私钥导入'],
+			tabs: ['助记词导入'], //'私钥导入'
 			mnemonic: '',
 			passwd: '',
 			confirm: '',
-			isPassword: "password"
+			isPassword: 'password',
+			address: '',
+			isApp: ''
 		};
 	},
-	onLoad() {
-		console.log(xuperSDK);
+	onLoad({ isApp }) {
+		this.isApp = isApp || 0;
 	},
 	computed: {
-		hasErrors() {
-			return (
-				Boolean(this.passwderrmsg) ||
-				Boolean(this.confirmerrmsg) ||
-				(!Boolean(this.passwd) || this.passwd.length < 8) ||
-				(!Boolean(this.confirm) || this.confirm.length < 8) ||
-				this.mnemonic.length == 0
-			);
-		},
 		tipText() {
 			if (this.tabCurr === 1) {
 				return '请输入私钥明文';
 			}
 			return '请输入助记词';
-		},
-		passwderrmsg() {
-			if (/\d/.test(this.passwd) && (/[A-Z]/.test(this.passwd) || /[a-z]/.test(this.passwd)) && this.passwd.length >= 8) {
-				return '';
-			} else {
-				return '数字和大小写字母，不少于8位';
-			}
-		},
-		confirmerrmsg() {
-			if (this.confirm.length >= 8) {
-				if (this.confirm !== this.passwd) {
-					return '两次输入不一致';
-				}
-			}
-			return '';
 		}
 	},
 	methods: {
+		confirmerrmsg() {
+			if (this.confirm !== this.passwd) {
+				uni.showToast({
+					title: '两次输入不一致',
+					icon: 'none'
+				});
+				return false;
+			} else {
+				return true;
+			}
+		},
+		passwderrmsg() {
+			if (/\d/.test(this.passwd) && (/[A-Z]/.test(this.passwd) || /[a-z]/.test(this.passwd)) && this.passwd.length >= 8) {
+				return true;
+			} else {
+				uni.showToast({
+					title: '数字和大小写字母，不少于8位',
+					icon: 'none'
+				});
+				return false;
+			}
+		},
 		startHandle() {
+			this.tabCurr ? this.checkPrivatekey() : this.checkWords();
+		},
+		checkPrivatekey() {
+			const checkResult = checkAddress(this.address);
+			alert(checkResult);
+		},
+		checkWords() {
 			// 检查助记词是否正确
-			const checkResult = xuperSDK.checkMnemonic(this.mnemonic, Language.SimplifiedChinese);
+			const checkResult = checkAccount(this.mnemonic);
 			if (!checkResult) {
 				return this.$toast('助记词格式不正确');
 			}
+			if (!this.passwderrmsg()) return;
+			if (!this.confirmerrmsg()) return;
 			uni.showLoading({
 				title: '导入中...'
 			});
 			// 导入账户
-			const accountModel = xuperSDK.revertAccount(this.mnemonic, Language.SimplifiedChinese, Cryptography.EccFIPS);
-			accountActions.save(accountModel, this.passwd);
-			passwordActions.set(this.passwd);
-			uni.hideLoading();
-			this.$toastSucc('导入成功！', () => {
-				uni.redirectTo({
-					url: '/pages/wallet/index/index'
+			const accountModel = revertAccount(this.mnemonic);
+			if (this.isApp) {
+				uni_new.postMessage({
+					data: {
+						passwd: this.passwd,
+						account: accountModel
+					}
 				});
-			});
+			} else {
+				accountActions.save(accountModel, this.passwd);
+				passwordActions.set(this.passwd);
+				uni.hideLoading();
+				this.$toastSucc('导入成功！', () => {
+					uni.redirectTo({
+						url: '/pages/app/index'
+					});
+				});
+			}
+			uni.hideLoading();
 		}
 	}
 };
@@ -190,11 +180,16 @@ export default {
 		.set_passwd {
 			margin-bottom: 50upx;
 			height: 80upx;
-			line-height: 80upx;
+			// line-height: 80upx;
 			input {
 				width: 100%;
 				height: 80upx;
 				font-size: 28upx;
+			}
+			.red_dis {
+				font-size: 24rpx;
+				color: red;
+				padding: 0 0 10rpx;
 			}
 		}
 	}

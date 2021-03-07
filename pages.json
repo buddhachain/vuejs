@@ -3,6 +3,13 @@
 		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
 	},
 	"pages": [{
+			"path": "pages/app/index",
+			"style": {
+				"navigationBarTitleText": "首页",
+				"backgroundColor": "#ffffff",
+				"navigationBarBackgroundColor": "#ffffff"
+			}
+		}, {
 			"path": "pages/wallet/index/index",
 			"style": {
 				"navigationStyle": "custom",
@@ -38,18 +45,15 @@
 				"navigationBarBackgroundColor": "#ffffff"
 			}
 		},
+
 		{
-			"path": "pages/app/index",
-			"style": {
-				"navigationBarTitleText": "首页",
-				"backgroundColor": "#ffffff",
-				"navigationBarBackgroundColor": "#ffffff"
-			}
-		}, {
 			"path": "pages/user/main",
 			"style": {
 				"navigationStyle": "custom",
-				"backgroundColorTop":"#943f3e"
+				"backgroundColorTop": "#943f3e",
+				"app-plus":{
+					"bounce":"none"
+				}
 			}
 		},
 		{
@@ -133,6 +137,13 @@
 
 		{
 			"path": "pages/wallet/import/main",
+			"style": {
+				"navigationBarTitleText": "导入佛界钱包",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/wallet/import/main-app",
 			"style": {
 				"navigationBarTitleText": "导入佛界钱包"
 			}
