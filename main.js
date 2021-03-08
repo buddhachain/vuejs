@@ -29,7 +29,7 @@ Vue.prototype.$copy = (data) => {
 	uniwx.setClipboardData({
 		data, //需要设置的内容,
 		success: res => {
-
+		
 		}
 	});
 }
@@ -57,8 +57,7 @@ Vue.prototype.$to = to;
 Vue.prototype.$toast = toast;
 Vue.prototype.$copy = copy;
 Vue.prototype.$toastSucc = toastSucc;
-
-
+Vue.prototype.$webUrl = process.env === 'production' ? 'http://192.168.0.104:8081' : 'http://120.79.167.88';
 Vue.prototype.$onInput = function(e, key) {
 	this[key] = e.detail.value
 }

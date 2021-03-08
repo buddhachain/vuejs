@@ -114,7 +114,7 @@ export default {
 				passwordActions.set(this.passwd);
 				uni.hideLoading();
 				this.$toastSucc('导入成功！', () => {
-					uni.redirectTo({
+					uni.reLaunch({
 						url: '/pages/app/index'
 					});
 				});

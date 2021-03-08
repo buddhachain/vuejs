@@ -49,21 +49,21 @@
 		<view class="footer_wrap bg-white">
 			<!-- $to('./out?c=bud') -->
 			<!-- <Button long type="white" @click="out">转出</Button> -->
-			<!-- <Button long type="white" @click="test">test</Button> -->
-			<u-button class="u-flex-1 u-m-r-20" type="primary" @click="out" ripple :custom-style="{ color: '#fff' }">转出</u-button>
-			<u-button class="u-flex-1" type="warning" @click="$to('./in?c=bud')" ripple :custom-style="{ color: '#fff' }">转入</u-button>
+			<Button long type="white" @click="test">test 转账</Button>
+			<!-- <u-button class="u-flex-1 u-m-r-20" type="primary" @click="out" ripple :custom-style="{ color: '#fff' }">转出</u-button> -->
+			<!-- <u-button class="u-flex-1" type="warning" @click="$to('./in?c=bud')" ripple :custom-style="{ color: '#fff' }">转入</u-button> -->
 		</view>
 	</view>
 </template>
 <script>
-import accountActions from '../../../actions/account';
+import accountActions from '@/actions/account';
 import { xuperSDK } from '@/lib/XuperChainSdk';
 export default {
 	data() {
 		return {
 			address: '',
 			currency: 'bud',
-			balance: 123123123123123,
+			balance: 0,
 			zhehe_coin: 'usdt'
 		};
 	},
@@ -79,7 +79,6 @@ export default {
 		}
 	},
 	onNavigationBarButtonTap(e) {
-		// console.log(e)
 		uni.navigateTo({
 			url: '/pages/wallet/manage/main'
 		});
@@ -112,45 +111,20 @@ export default {
 			console.log(r);
 		},
 		test() {
-			console.log('end');
-			const ud = {
-				amount: 'I4byb8EAAA==',
-				toAddr: 'VzNkMVJlZVBVNTJ4SnVGVHV1VlU0VW5nN3lWQUN5aVRi',
-				refTxid: 'qLzGNkoBvU4xTeBKWztUfuKnj6nc1OdzoFFbbpEbGi0='
-			};
-			// const tt = {
-
-			// 	utxoOutput: {
-			// 		header: {
-			// 			logid: '1614742350468902191_89_5527'
-			// 		},
-			// 		utxoList: [
-			// 			{
-			// 				amount: 'I4byb8EAAA==',
-			// 				toAddr: 'VzNkMVJlZVBVNTJ4SnVGVHV1VlU0VW5nN3lWQUN5aVRi',
-			// 				refTxid: 'qLzGNkoBvU4xTeBKWztUfuKnj6nc1OdzoFFbbpEbGi0='
-			// 			}
-			// 		],
-			// 		totalSelected: '10000000000000000'
-			// 	}
-
 			const ti = {
 				to: 'W3d1ReePU52xJuFTuuVU4Ung7yVACyiTb',
 				amount: '1',
 				fee: '0',
 				desc: '121312'
 			};
-
-			// xuperSDK.makeTransaction('VzNkMVJlZVBVNTJ4SnVGVHV1VlU0VW5nN3lWQUN5aVRi', 'qLzGNkoBvU4xTeBKWztUfuKnj6nc1OdzoFFbbpEbGi0', ud);
-			// const tx = xuperSDK.makeTransaction (ti,{fee:''},{});
-			const res = xuperSDK.getBalance('RtVvkrb1653VA1wST8mLUM5YGyMdhy5is');
+			const res = xuperSDK.transfer(ti,'W3d1ReePU52xJuFTuuVU4Ung7yVACyiTb');
 			console.log(res);
 			// test()
 		},
 		async out() {
 			uni.navigateTo({
-				url:'./out'
-			})
+				url: './out'
+			});
 			// await this.$u.api.walletApi.postPretx({ account: 'W3d1ReePU52xJuFTuuVU4Ung7yVACyiTb', amount: '1', desc: '121312' });
 		}
 	}

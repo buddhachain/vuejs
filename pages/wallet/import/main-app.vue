@@ -1,5 +1,5 @@
 <template>
-	<view><web-view src="http://192.168.0.105:8080/#/pages/wallet/import/main?isApp=1" @message="message"></web-view></view>
+	<view><web-view :src="$webUrl + '/#/pages/wallet/import/main?isApp=1'" @message="message"></web-view></view>
 </template>
 
 <script>
@@ -11,16 +11,16 @@ export default {
 	},
 	onLoad() {
 		uni.showToast({
-			title:"q11"
-		})
+			title: 'q11'
+		});
 	},
-	methods:{
-		message(e){
+	methods: {
+		message(e) {
 			const { account, passwd } = e.detail.data[0];
 			accountActions.save(account, passwd);
 			passwordActions.set(passwd);
 			this.$toastSucc('导入成功！', () => {
-				uni.redirectTo({
+				uni.reLaunch({
 					url: '/pages/app/index'
 				});
 			});

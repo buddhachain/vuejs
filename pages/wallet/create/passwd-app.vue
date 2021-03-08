@@ -1,5 +1,5 @@
 <template>
-	<view><web-view src="http://192.168.0.105:8080/#/pages/wallet/create/passwd?isApp=1" @message="message"></web-view></view>
+	<view><web-view :src="$webUrl + '/#/pages/wallet/create/passwd?isApp=1'" @message="message"></web-view></view>
 </template>
 <script>
 import passwordActions from '@/actions/password';
@@ -26,7 +26,9 @@ export default {
 			console.log(account);
 			accountActions.save(account, passwd);
 			await this.postUser(account);
-			this.$to('/pages/app/index');
+			uni.reLaunch({
+				url: '/pages/app/index'
+			});
 		},
 		async confirmCreate(oldPasswd) {
 			if (this.passwdErrMsg || this.confirmErrMsg) return;
@@ -67,8 +69,8 @@ export default {
 		},
 		async postUser({ address }) {
 			uni.showLoading({
-				title:'加载中...'
-			})
+				title: '加载中...'
+			});
 			let obj = {
 				account: address,
 				nickname: '',
@@ -79,7 +81,7 @@ export default {
 				address: ''
 			};
 			let res = await this.$u.api.userApi.postUser(obj);
-			uni.hideLoading()
+			uni.hideLoading();
 		}
 	}
 };

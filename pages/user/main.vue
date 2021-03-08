@@ -34,7 +34,7 @@
 				<view class="title">般若钻余额（BUD）</view>
 				<view class="money">{{ balance }}</view>
 				<view class="title">钱包地址</view>
-				<view class="adezrss">{{ userInfor.account }}</view>
+				<view class="adezrss" @click="copyAd(userInfor.account)">{{ userInfor.account }}</view>
 			</view>
 			<!-- card 购买 出售 -->
 			<view class="u-flex u-row-center user-buy">
@@ -143,11 +143,7 @@ export default {
 		},
 		// user
 		async getUserDtails() {
-		
 			const res = await this.$u.api.userApi.getUser();
-			// uni.showToast({
-			// 	title:'2222'
-			// })
 			this.userInfor = res;
 			this.getBalance(res.account);
 		},
@@ -155,6 +151,9 @@ export default {
 		async getBalance(account) {
 			const balance = await this.$u.api.walletApi.getBalance(account);
 			this.balance = balance;
+		},
+		copyAd(account){
+			this.$copy(account)
 		}
 	}
 };

@@ -28,6 +28,10 @@ export default {
 				content: '退出登录',
 				success: function(res) {
 					if (res.confirm) {
+						uni.clearStorageSync()
+						uni.reLaunch({
+							url:'/pages/wallet/index/index'
+						})
 					} else if (res.cancel) {
 						console.log('用户点击取消');
 					}
