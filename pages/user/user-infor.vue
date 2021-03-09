@@ -7,8 +7,14 @@
 				</u-cell-item>
 				<u-cell-item title="昵称" :value="userInfor.nickname || '未设置昵称'" @click="showPop(1)"></u-cell-item>
 				<u-cell-item title="性别" :value="userInfor.sex ? '男' : '女'" @click="showPop(2)"></u-cell-item>
-				<!-- <u-cell-item title="手机号" :value="userInfor.phone || '未设置'" @click="showPop(3)"></u-cell-item> -->
+				<u-cell-item title="手机号" :value="userInfor.phone || '未设置'" @click="showPop(3)"></u-cell-item>
 			</u-cell-group>
+		</view>
+
+		<view class="">
+			<u-button type="primary" class="u-m-l-30 u-m-r-30" @click="save" :loading="isLoading" ripple shape="circle" :custom-style="{ height: '80rpx', color: '#fff' }">
+				保存
+			</u-button>
 		</view>
 		<!-- nikname -->
 		<u-popup v-model="show" mode="center" border-radius="14" width="600">
@@ -19,7 +25,7 @@
 						<u-radio @change="radioChange" v-for="(item, index) in list" :key="index" :name="item.name">{{ item.name }}</u-radio>
 					</u-radio-group>
 				</view>
-				<!-- <u-field v-model="phone" :label-width="0" placeholder="请输入" v-if="type == 3"></u-field> -->
+				<u-field v-model="phone" :label-width="0" placeholder="请输入电话号码" v-if="type == 3"></u-field>
 				<u-button
 					type="primary"
 					class="u-m-t-30"
@@ -30,7 +36,7 @@
 					size="mini"
 					:custom-style="{ width: '200rpx', height: '60rpx', color: '#fff' }"
 				>
-					保存
+					确定
 				</u-button>
 			</view>
 		</u-popup>
@@ -44,8 +50,10 @@ export default {
 		return {
 			userInfor: {
 				cid: '',
-				userInfor:'',
-				sex:true
+				userInfor: '',
+				sex: true,
+				phone:'',
+				nickname:''
 			},
 			src: '',
 			show: false,
@@ -75,7 +83,9 @@ export default {
 		this.getUserDtails();
 	},
 	methods: {
-		radioChange(e) {},
+		radioChange(e) {
+			
+		},
 		changeAvator() {
 			let _self = this;
 			uni.chooseImage({
@@ -129,12 +139,23 @@ export default {
 		},
 		// save
 		async save() {
-			let res;
-			res = await this.$u.api.userApi.postUserNickname({ nickname: this.nikeName });
+			switch (this.type) {
+				case 1:
+					this.userInfor.nickname = this.nikeName;
+					break;
+				case 2:
+					this.userInfor.sex = this.sex === '男';
+					break;
+				case 3:
+					this.userInfor.phone = this.phone;
+					break;
+				default:
+					break;
+			}
+			// res = await this.$u.api.userApi.postUserNickname({ nickname: this.nikeName });
 			// res = await this.$u.api.userApi.postUserNickname({ nickname: this.nikeName });
 			// res = await this.$u.api.userApi.postUserNickname({ nickname: this.nikeName });
 			this.show = false;
-			this.userInfor.nikeName = nikeName;
 		},
 		showPop(num) {
 			this.show = true;
@@ -147,8 +168,13 @@ export default {
 <style lang="scss">
 .user-infor {
 	padding: 30rpx 20rpx;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 50vh;
 	.box {
 		background-color: #ffffff;
+		overflow: hidden;
 	}
 }
 </style>

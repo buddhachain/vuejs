@@ -15,7 +15,6 @@ import {
 	md5Encrypt
 } from './lib/crypto'
 // api
-import * as API from './service/api'
 Vue.config.productionTip = false
 // 引入全局uView
 import uView from 'uview-ui';
@@ -58,12 +57,6 @@ Vue.prototype.$toast = toast;
 Vue.prototype.$copy = copy;
 Vue.prototype.$toastSucc = toastSucc;
 Vue.prototype.$webUrl = process.env === 'production' ? 'http://192.168.0.104:8081' : 'http://120.79.167.88';
-Vue.prototype.$onInput = function(e, key) {
-	this[key] = e.detail.value
-}
-
-Vue.prototype.$API = API;
-
 
 // crypto
 Vue.prototype.$md5 = md5Encrypt;

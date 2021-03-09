@@ -128,6 +128,7 @@ export default {
 			if (this.type === 1) {
 				// 此处应该先创建钱包， 使用用户设置的密码将助记词加密后存储到本地；
 				const account = createAccount();
+				console.log(account)
 				if (this.isApp) {
 					uni_new.postMessage({
 						data: {
@@ -137,6 +138,8 @@ export default {
 					});
 				} else {
 					accountActions.save(account, this.passwd);
+					passwordActions.set(this.passwd);
+					passwordActions.setNoPwd(this.passwd);
 					await this.postUser(account);
 					uni.reLaunch({
 						url:'/pages/app/index'
@@ -164,7 +167,6 @@ export default {
 					});
 				});
 			}
-			passwordActions.set(this.passwd);
 		},
 		async postUser({ address }) {
 			this.isLoading = true;

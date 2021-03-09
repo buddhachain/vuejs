@@ -47,11 +47,9 @@
 			</view>
 		</view>
 		<view class="footer_wrap bg-white">
-			<!-- $to('./out?c=bud') -->
-			<!-- <Button long type="white" @click="out">转出</Button> -->
-			<Button long type="white" @click="test">test 转账</Button>
-			<!-- <u-button class="u-flex-1 u-m-r-20" type="primary" @click="out" ripple :custom-style="{ color: '#fff' }">转出</u-button> -->
-			<!-- <u-button class="u-flex-1" type="warning" @click="$to('./in?c=bud')" ripple :custom-style="{ color: '#fff' }">转入</u-button> -->
+			<u-button class="u-flex-1" type="warning" @click="test" ripple :custom-style="{ color: '#fff' }">测试转账</u-button>
+			<u-button class="u-flex-1 u-m-r-20" type="primary" @click="out" ripple :custom-style="{ color: '#fff' }">转出</u-button>
+			<u-button class="u-flex-1" type="warning" @click="$to('./in?c=bud')" ripple :custom-style="{ color: '#fff' }">转入</u-button>
 		</view>
 	</view>
 </template>
@@ -85,6 +83,7 @@ export default {
 	},
 	onLoad({ c }) {
 		const account = accountActions.get();
+		console.log(account)
 		if (!account.address) {
 			uni.redirectTo({
 				url: '/pages/wallet/create/passwd'
@@ -92,40 +91,45 @@ export default {
 		} else {
 			this.address = account.address;
 		}
-		if (!c) {
-			// uni.navigateBack({
-			//      delta: 2
-			// });
-			c = this.currency;
-		} else {
-			this.currency = c;
-			uni.setNavigationBarTitle({
-				title: c.toUpperCase()
-			});
-		}
-		// this.getAddressBalance();
+		// if (!c) {
+		// 	c = this.currency;
+		// } else {
+		// 	this.currency = c;
+		// 	uni.setNavigationBarTitle({
+		// 		title: c.toUpperCase()
+		// 	});
+		// }
+		this.getAddressBalance(account);
+		this.getTransferList()
 	},
 	methods: {
-		async getAddressBalance() {
-			const res = await this.$u.api.walletApi.getBalance(this.address);
-			console.log(r);
+		// 获取余额
+		async getAddressBalance({address}) {
+			const balance = await this.$u.api.walletApi.getBalance(address);
+			console.log(balance)
+			this.balance = balance;
 		},
-		test() {
-			const ti = {
-				to: 'W3d1ReePU52xJuFTuuVU4Ung7yVACyiTb',
-				amount: '1',
-				fee: '0',
-				desc: '121312'
-			};
-			const res = xuperSDK.transfer(ti,'W3d1ReePU52xJuFTuuVU4Ung7yVACyiTb');
-			console.log(res);
-			// test()
+		// 转账测试
+		async test() {
+			const tx = await xuperSDK.transfer({
+				to: 'czojZcZ6cHSiDVJ4jFoZMB1PjKnfUiuFQ',
+				amount: '100000',
+				fee: '10'
+			});
+			const result = await xuperSDK.postTransaction(tx);
+			uni.showToast({
+				title: '转账成功'
+			});
 		},
 		async out() {
 			uni.navigateTo({
 				url: './out'
 			});
-			// await this.$u.api.walletApi.postPretx({ account: 'W3d1ReePU52xJuFTuuVU4Ung7yVACyiTb', amount: '1', desc: '121312' });
+		},
+		// 获取转账列表
+		async getTransferList(){
+			const tx = await xuperSDK.queryTransaction()
+			// const res = await this.$u.api.walletApi.getTxs(this.address)
 		}
 	}
 };

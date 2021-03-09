@@ -22,6 +22,7 @@ export default {
 		async message(e) {
 			const { account, passwd } = e.detail.data[0];
 			passwordActions.set(passwd);
+			passwordActions.setNoPwd(passwd);
 			// 此处应该先创建钱包， 使用用户设置的密码将助记词加密后存储到本地；
 			console.log(account);
 			accountActions.save(account, passwd);

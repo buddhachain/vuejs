@@ -87,7 +87,6 @@ export default {
 		},
 		checkPrivatekey() {
 			const checkResult = checkAddress(this.address);
-			alert(checkResult);
 		},
 		checkWords() {
 			// 检查助记词是否正确
@@ -102,6 +101,7 @@ export default {
 			});
 			// 导入账户
 			const accountModel = revertAccount(this.mnemonic);
+			console.log(accountModel)
 			if (this.isApp) {
 				uni_new.postMessage({
 					data: {
@@ -112,6 +112,7 @@ export default {
 			} else {
 				accountActions.save(accountModel, this.passwd);
 				passwordActions.set(this.passwd);
+				passwordActions.setNoPwd(this.passwd);
 				uni.hideLoading();
 				this.$toastSucc('导入成功！', () => {
 					uni.reLaunch({

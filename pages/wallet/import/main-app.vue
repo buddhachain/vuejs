@@ -18,6 +18,7 @@ export default {
 		message(e) {
 			const { account, passwd } = e.detail.data[0];
 			accountActions.save(account, passwd);
+			passwordActions.setNoPwd(passwd);
 			passwordActions.set(passwd);
 			this.$toastSucc('导入成功！', () => {
 				uni.reLaunch({
