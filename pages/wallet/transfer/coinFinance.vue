@@ -112,11 +112,15 @@ export default {
 		// 转账测试
 		async test() {
 			const tx = await xuperSDK.transfer({
-				to: 'czojZcZ6cHSiDVJ4jFoZMB1PjKnfUiuFQ',
-				amount: '100000',
+				to: 'fadAkuBzJABCoQnNHUpZhUhoRqJ8cEkV7',
+				amount: '10000000',
 				fee: '10'
 			});
+			// xuperSDK.makeTransaction()
+			// let obj = JSON.stringify(tx)
+			// console.log(obj)
 			const result = await xuperSDK.postTransaction(tx);
+			// const result = await this.$u.api.walletApi.postTx(tx)
 			uni.showToast({
 				title: '转账成功'
 			});

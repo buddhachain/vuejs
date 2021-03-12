@@ -6,23 +6,18 @@
 			<view class="u-flex header">
 				<view class="u-flex-1 u-text-center" v-for="item in tableHeade">{{ item }}</view>
 			</view>
-			<view class="">
-				<check-cell v-for="i in 20" :class="{ 'list-double': i % 2 !== 0 }" :key="i" />
-				<!-- <view class="u-flex list" v-for="i in 20" :class="{ 'list-double': i % 2 !== 0 }" :key="i">
-					<view class="u-flex-1 u-text-center">名称</view>
-					<view class="u-flex-1 u-text-center">所属人</view>
-					<view class="u-flex-1 u-text-center"><u-switch v-model="checked" :size="30" :loading="loading" @change="changeCheck"></u-switch></view>
-				</view> -->
-			</view>
+			<mastr-list v-if="current == 3" />
 		</view>
 	</view>
 </template>
 
 <script>
 import checkCell from './components/check-cell.vue';
+import mastrList from './master-list.vue';
 export default {
 	components: {
-		checkCell
+		checkCell,
+		mastrList
 	},
 	data() {
 		return {
@@ -42,8 +37,7 @@ export default {
 			],
 
 			current: 0,
-			keyword: '',
-			
+			keyword: ''
 		};
 	},
 	computed: {
@@ -76,8 +70,7 @@ export default {
 	methods: {
 		change(index) {
 			this.current = index;
-		},
-		
+		}
 	}
 };
 </script>

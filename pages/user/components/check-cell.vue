@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import { invoke } from '@/lib/XuperChainSdk.js';
 export default {
 	data() {
 		return {
@@ -20,14 +21,15 @@ export default {
 			this.loading = true;
 			this.getRestultFromServer(status);
 		},
-		getRestultFromServer(status) {
+		async getRestultFromServer(status) {
+			let res = await invoke('approve_master', { id: 'nRv4jJd25N13tBVxq3EjnjSB1uviLM548' }, '0');
 			// 通过定时器模拟向后端请求
-			setTimeout(() => {
-				// this.controlStatus = true;
-				// 后端允许用户关闭switch，设置checked为false，结束loading状态
-				this.loading = false;
-				this.checked = status;
-			}, 1500);
+			// setTimeout(() => {
+			// this.controlStatus = true;
+			// 后端允许用户关闭switch，设置checked为false，结束loading状态
+			this.loading = false;
+			this.checked = status;
+			// }, 1500);
 		}
 	}
 };

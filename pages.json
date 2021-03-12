@@ -193,7 +193,16 @@
 				"navigationBarTitleText": "个人资料"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/wallet/test/test",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "测试页面",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "佛界钱包",

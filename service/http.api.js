@@ -21,6 +21,11 @@ const install = (Vue, vm) => {
 		postTx(params) {
 			return vm.$u.post(`/v1/tx`, params)
 		},
+		 
+		 // 通用预处理
+		 postContractPretx(params) {
+		 	return vm.$u.post(`/v1/contract/invoke`, params)
+		 },
 	};
 	// 佛经
 	const buddhistApi = {
