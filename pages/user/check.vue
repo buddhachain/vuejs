@@ -6,17 +6,18 @@
 			<view class="u-flex header">
 				<view class="u-flex-1 u-text-center" v-for="item in tableHeade">{{ item }}</view>
 			</view>
-			<mastr-list v-if="current == 3" />
+			<view v-if="current === 0"><mastr-list :currentIndex="current" :list="listKind"/></view>
+			<view v-if="current === 1"><mastr-list :currentIndex="current" :list="listTemple"/></view>
+			<view v-if="current === 2"><mastr-list :currentIndex="current" :list="listMaster"/></view>
 		</view>
 	</view>
 </template>
 
 <script>
-import checkCell from './components/check-cell.vue';
-import mastrList from './master-list.vue';
+import { invoke } from '@/lib/XuperChainSdk.js';
+import mastrList from './components/master-list.vue';
 export default {
 	components: {
-		checkCell,
 		mastrList
 	},
 	data() {
@@ -25,9 +26,9 @@ export default {
 				{
 					name: '上架审核'
 				},
-				{
-					name: '活动审核'
-				},
+				// {
+				// 	name: '活动审核'
+				// },
 				{
 					name: '寺院认证'
 				},
@@ -37,20 +38,24 @@ export default {
 			],
 
 			current: 0,
-			keyword: ''
+			keyword: '',
+			listTemple: [],
+			listMaster: [],
+			listKind: [],
 		};
 	},
 	computed: {
 		tableHeade() {
 			const titleMap = {
 				0: ['名称', '所属人', '是否上架'],
-				1: ['名称', '所属人', '是否合格'],
-				2: ['名称', '所属人', '是否通过'],
-				3: ['名字', '所属寺院', '是否通过']
+				// 1: ['名称', '所属人', '是否合格'],
+				1: ['名称', '所属人', '是否通过'],
+				2: ['名字', '所属寺院', '是否通过']
 			};
 			return titleMap[this.current];
 		}
 	},
+
 	watch: {
 		// checked(val) {
 		// 	// 等于false，意味着用户手动关闭了switch
@@ -67,9 +72,32 @@ export default {
 		// 	}
 		// }
 	},
+	onLoad() {
+		this.getList();
+		this.getListKinddeed();
+		this.getListTemple();
+	},
 	methods: {
 		change(index) {
 			this.current = index;
+		},
+		// 获取上架列表
+		async getListKinddeed() {
+			let res = await invoke('list_kinddeed', {}, '0');
+			this.listTemple = res;
+			console.log(res);
+		},
+		// 获取寺院
+		async getListTemple() {
+			let res = await invoke('list_temple', {}, '0');
+			this.listTemple = res;
+			console.log(res);
+		},
+		// 获取法师
+		async getList() {
+			let res = await invoke('list_master', {}, '0');
+			this.listMaster = res
+			console.log(res);
 		}
 	}
 };

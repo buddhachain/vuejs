@@ -1,6 +1,7 @@
 <template>
     <view class="rollin-page-cont">
-        <CoinBar img="https://s2.feixiaoquan.com/logo/1/bitcoin.png?x-oss-process=style/coin_36_webp" :name="coinUpper" style="border-radius: 8upx" @click="$to('./coinFinance?c=' + coinUpper)"></CoinBar>
+		<!-- @click="$to('./coinFinance?c=' + coinUpper)" -->
+        <CoinBar img="https://s2.feixiaoquan.com/logo/1/bitcoin.png?x-oss-process=style/coin_36_webp" :name="coinUpper" style="border-radius: 8upx" ></CoinBar>
         <view class="charge_body bg-white">
             <view class="tip">
                 <text class="gray">扫二维码，转入{{ coinUpper }}</text>
@@ -92,6 +93,7 @@ export default {
                 font-size: 28upx;
                 line-height: 50upx;
                 color: #747474;
+				text-align: center;
             }
             .cp_addr {
                 text-align: center;

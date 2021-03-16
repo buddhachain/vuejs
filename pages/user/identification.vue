@@ -2,7 +2,7 @@
 	<view class="identification">
 		<view class="u-flex iden-list">
 			<view class="name">冻结BUD金额：</view>
-			<input type="number" value="" class="input-box" />
+			<input type="number" v-model="amount" class="input-box" disabled />
 		</view>
 		<view class="u-flex iden-list">
 			<view class="name">出生日期：</view>
@@ -19,13 +19,15 @@
 			</view>
 		</view>
 		<view class="u-flex iden-list">
-			<view class="name">性别：</view>
-			<!-- <input type="text" value="" class="input-box" /> -->
-			<u-radio-group v-model="value" @change="radioGroupChange">
+			<view class="name">描述：</view>
+			<textarea type="text" v-model="desc" class="input-box" />
+			<!-- 			<u-radio-group v-model="value" @change="radioGroupChange">
 				<u-radio @change="radioChange" v-for="(item, index) in list" :key="index" :name="item.name" :disabled="item.disabled">{{ item.name }}</u-radio>
-			</u-radio-group>
+			</u-radio-group> -->
 		</view>
-		<view class="u-m-30 u-m-t-80"><u-button type="primary" ripple :custom-style="{ background: '#735ba0', height: '80rpx', color: '#fff' }">申请认证</u-button></view>
+		<view class="u-m-30 u-m-t-80">
+			<u-button type="primary" ripple @click="applyFounder" :loading="isLoading" :custom-style="{ background: '#735ba0', height: '80rpx', color: '#fff' }">申请认证</u-button>
+		</view>
 		<!-- 日期选择器 -->
 		<u-picker mode="time" v-model="showTimePicker" :params="params" @confirm="getTime"></u-picker>
 		<!-- 地区选择 -->
@@ -34,6 +36,7 @@
 </template>
 
 <script>
+import { invoke } from '@/lib/XuperChainSdk.js';
 export default {
 	data() {
 		return {
@@ -59,7 +62,10 @@ export default {
 			showTimePicker: false,
 			regionShow: false,
 			time: '',
-			region: ''
+			region: '',
+			amount: '100000',
+			desc: '',
+			isLoading: false
 		};
 	},
 	methods: {
@@ -76,6 +82,22 @@ export default {
 		},
 		getRegion({ province, city, area }) {
 			this.region = `${province.label}-${city.label}-${area.label}`;
+		},
+		// 申请基金会成员
+		async applyFounder() {
+			if (this.desc == '') {
+				uni.showToast({
+					title: '描述不能为空！',
+					icon: 'none'
+				});
+				return;
+			}
+			this.isLoading = true;
+			const res = await invoke('apply_founder', { desc: this.desc, address: this.region, timestamp: this.time }, this.amount);
+			this.isLoading = false;
+			uni.showToast({
+				title: '申请成功，请待管理员审核',
+			});
 		}
 	}
 };

@@ -5,7 +5,7 @@
 		<view class="u-m-t-40 infor-box radius" v-show="currentIndex === 0">
 			<view class="title">请准备好如下材料的扫描件或照片,要求清晰可辨认:</view>
 			<view class="u-p-t-30 u-p-b-60 sub">《宗教场地登记证》</view>
-			<view class="u-flex u-row-center radius u-m-b-50"><u-image width="300rpx" height="200rpx" :src="src"></u-image></view>
+			<view class="u-flex u-row-center radius u-m-b-50"><u-image @click="chooseImg" width="300rpx" height="200rpx" :src="src"></u-image></view>
 			<view class="dis-list">
 				<text class="dis-icon">*</text>
 				<text>自在家认证将谨慎、严格的验证真实性,能够更好地保护寺院及用户的合法权益;</text>
@@ -20,18 +20,18 @@
 		<view class="u-m-t-40 infor-box-two radius" v-show="currentIndex === 1">
 			<view class="box">
 				<view class="title">寺院信息设置</view>
-				<u-field v-model="mobile" class="field-box" :border-bottom="false" label="单位名称:" placeholder="请输入单位全称"></u-field>
-				<u-field v-model="mobile" class="field-box" :border-bottom="false" label="机构代码:" placeholder="请输入机构代码"></u-field>
+				<u-field v-model="formData.unit" class="field-box" :border-bottom="false" label="单位名称:" placeholder="请输入单位全称"></u-field>
+				<u-field v-model="formData.creditcode" class="field-box" :border-bottom="false" label="机构代码:" placeholder="请输入机构代码"></u-field>
 				<view class="dis-text">场所编号或统一信用带代码</view>
-				<u-field v-model="mobile" class="field-box" disabled :border-bottom="false" label="省份城市:" placeholder="" @click="regionShow = true">
+				<u-field v-model="formData.address" class="field-box" disabled :border-bottom="false" label="省份城市:" placeholder="" @click="regionShow = true">
 					<u-icon slot="right" name="map" color="#999" size="30"></u-icon>
 				</u-field>
-				<u-field v-model="mobile" class="field-box" :border-bottom="false" label="详细地址:" placeholder=""></u-field>
+				<!-- <u-field v-model="mobile" class="field-box" :border-bottom="false" label="详细地址:" placeholder=""></u-field>
 				<u-field v-model="mobile" class="field-box" :border-bottom="false" label="寺院法人:" placeholder="请输入真实姓名"></u-field>
 				<u-field v-model="mobile" class="field-box" :border-bottom="false" label="手机号码:" placeholder="请输入法人常用手机号"></u-field>
-				<u-field v-model="mobile" class="field-box" :border-bottom="false" label="电子邮箱:" placeholder="请输入常用的邮箱"></u-field>
+				<u-field v-model="mobile" class="field-box" :border-bottom="false" label="电子邮箱:" placeholder="请输入常用的邮箱"></u-field> -->
 			</view>
-			<view class="box">
+			<view class="box" v-if="false">
 				<view class="title">后台登录设置</view>
 				<view class="u-flex">
 					<text class="sub-title">您是寺院法人？</text>
@@ -59,14 +59,20 @@
 				<u-field v-model="mobile" class="field-box" :border-bottom="false" label="确认密码:" placeholder=""></u-field>
 			</view>
 		</view>
+		<view class="u-m-t-80" v-show="currentIndex === 2"><u-button type="primary" ripple :custom-style="{ background: '#943f3e' }" @click="save">提交</u-button></view>
 		<!-- 下一步 -->
-		<view class="temp-iden-btn"><u-button type="primary" ripple :custom-style="{ background: '#943f3e' }" @click="changeCurrentIndex">下一步</u-button></view>
+		<view class="temp-iden-btn" v-show="currentIndex != 2">
+			<u-button type="primary" ripple :custom-style="{ background: '#943f3e' }" @click="changeCurrentIndex">下一步</u-button>
+		</view>
 		<!-- 地区选择 -->
 		<u-picker mode="region" v-model="regionShow" @confirm="getRegion"></u-picker>
 	</view>
 </template>
 
 <script>
+import { uploadImg } from '@/lib/common.js';
+import { baseURL } from '@/service/env.js';
+import { invoke } from '@/lib/XuperChainSdk.js';
 export default {
 	data() {
 		return {
@@ -81,15 +87,42 @@ export default {
 					name: '提交资料'
 				}
 			],
-			src: 'https://cdn.uviewui.com/uview/example/fade.jpg',
+			src: '',
 			currentIndex: 0,
 			seconds: 60,
 			codeText: '获取验证码',
-			regionShow: false
+			regionShow: false,
+			formData: {
+				unit: '',
+				creditcode: '',
+				address: '',
+				proof: ''
+			}
 		};
 	},
 	methods: {
+		getRegion({ province, city, area }) {
+			this.formData.address = `${province.label}-${city.label}-${area.label}`;
+		},
 		changeCurrentIndex() {
+			if (this.currentIndex === 0) {
+				if (this.formData.proof == '') {
+					uni.showToast({
+						title: '请上传资料',
+						icon: 'none'
+					});
+					return;
+				}
+			}
+			if (this.currentIndex === 1) {
+				if (this.formData.unit == '' || this.formData.creditcode == '' || this.formData.address == '') {
+					uni.showToast({
+						title: '请填写完整信息',
+						icon: 'none'
+					});
+					return;
+				}
+			}
 			this.currentIndex++;
 		},
 		codeChange(text) {
@@ -115,6 +148,30 @@ export default {
 		},
 		start() {
 			this.$u.toast('倒计时开始');
+		},
+		async chooseImg() {
+			uni.chooseImage({
+				success: chooseImageRes => {
+					const tempFilePaths = chooseImageRes.tempFilePaths;
+					uni.showLoading({
+						title: '上传中'
+					});
+					uploadImg(tempFilePaths).then(res => {
+						this.src = baseURL + ':8080/ipfs/' + res;
+						this.formData.proof = res;
+						setTimeout(() => {
+							this.currentIndex++;
+						}, 500);
+					});
+				}
+			});
+		},
+		async save() {
+			await invoke('apply_temple', this.formData, '0');
+			uni.showToast({
+				title:'提交成功',
+			})
+			
 		}
 	}
 };

@@ -8,14 +8,14 @@
                 导出私钥
             </view>
         </view>
-        <view class="_row">
+<!--        <view class="_row">
             <view class="bg-white" @click="$to('/pages/wallet/create/passwd?t=2')">
                 修改密码
             </view>
             <view class="bg-white" @click="$to('/pages/wallet/import/main')">
                 导入钱包
             </view>
-        </view>
+        </view> -->
     </view>
 </template>
 <style lang="scss" scoped>
@@ -27,10 +27,11 @@
             >view{
                 flex: 1;
                 height: 170upx;
-                line-height: 70upx;
+                line-height: 170upx;
                 font-size: 28upx;
-                padding-left: 20upx;
+                // padding-left: 20upx;
                 margin-bottom: 96upx;
+				text-align: center;
                 &:first-child {
                     margin-right: 120upx;
                 }

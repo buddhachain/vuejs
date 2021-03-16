@@ -35,6 +35,7 @@
 </template>
 <script>
 import accountActions from '@/actions/account';
+import { invoke } from '@/lib/XuperChainSdk.js';
 export default {
 	data() {
 		return {};
@@ -45,6 +46,8 @@ export default {
 			uni.reLaunch({
 				url: '/pages/wallet/index/index'
 			});
+		}else{
+			this.getListType()
 		}
 	},
 	methods: {
@@ -52,7 +55,12 @@ export default {
 			uni.navigateTo({
 				url: '/pages/app/activity/main'
 			});
-		}
+		},
+		async getListType() {
+			const res = await invoke('list_kinddeedtype', {}, '0');
+			const list = await invoke('list_kinddeed', {}, '0');
+		},
+		
 	}
 };
 </script>

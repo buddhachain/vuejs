@@ -47,7 +47,7 @@
 			</view>
 		</view>
 		<view class="footer_wrap bg-white">
-			<u-button class="u-flex-1" type="warning" @click="test" ripple :custom-style="{ color: '#fff' }">测试转账</u-button>
+			<!-- <u-button class="u-flex-1" type="warning" @click="test" ripple :custom-style="{ color: '#fff' }">测试转账</u-button> -->
 			<u-button class="u-flex-1 u-m-r-20" type="primary" @click="out" ripple :custom-style="{ color: '#fff' }">转出</u-button>
 			<u-button class="u-flex-1" type="warning" @click="$to('./in?c=bud')" ripple :custom-style="{ color: '#fff' }">转入</u-button>
 		</view>
@@ -116,11 +116,7 @@ export default {
 				amount: '10000000',
 				fee: '10'
 			});
-			// xuperSDK.makeTransaction()
-			// let obj = JSON.stringify(tx)
-			// console.log(obj)
 			const result = await xuperSDK.postTransaction(tx);
-			// const result = await this.$u.api.walletApi.postTx(tx)
 			uni.showToast({
 				title: '转账成功'
 			});

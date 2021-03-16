@@ -98,9 +98,6 @@ export default {
 						url: baseURL + '/v1/ipfs/image',
 						filePath: tempFilePaths[0],
 						name: 'image',
-						// header: {
-						// 	'Content-Type': 'multipart/form-data'
-						// },
 						success: uploadFileRes => {
 							console.log(uploadFileRes);
 							const { errCode, errMsg, data } = JSON.parse(uploadFileRes.data);

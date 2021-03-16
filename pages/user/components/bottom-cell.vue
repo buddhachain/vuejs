@@ -13,15 +13,18 @@
 					<!-- <u-icon name="arrow-right" color="#969799" :size="26"></u-icon> -->
 				</view>
 			</u-cell-item>
+			<u-cell-item title="寺院列表" @click="goIden('/pages/user/listTemple')"></u-cell-item>
 			<u-cell-item title="寺院认证" @click="goIden('/pages/user/temple-iden')">
 				<view slot="right-icon">
 					<text class="u-font-26">未认证</text>
 					<!-- <u-icon name="arrow-right" color="#969799" :size="26"></u-icon> -->
 				</view>
 			</u-cell-item>
-			<u-cell-item title="基金会成员" @click="goIden('/pages/user/identification')"></u-cell-item>
+			<u-cell-item title="基金会成员认证" @click="goIden('/pages/user/identification')"></u-cell-item>
 			<!-- 已经认证的基金会成员 -->
-			<u-cell-item title="基金会成员" @click="goIden('/pages/user/check')"></u-cell-item>
+			<u-cell-item title="基金会管理" @click="goIden('/pages/user/check')"></u-cell-item>
+			<u-cell-item title="添加善举" @click="goIden('/pages/user/kinddeed')"></u-cell-item>
+			<u-cell-item title="我上传的善举列表" @click="goIden('/pages/user/myKinddeed')"></u-cell-item>
 		</u-cell-group>
 	</view>
 </template>

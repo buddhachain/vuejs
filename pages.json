@@ -201,7 +201,34 @@
                 "enablePullDownRefresh": false
             }
             
-        }
+        },
+		{
+			"path" : "pages/user/listTemple",
+			"style" :                                                                                    
+			{
+			    "navigationBarTitleText": "寺院列表",
+			    "enablePullDownRefresh": false
+			}
+			
+		},
+		{
+			"path" : "pages/user/kinddeed",
+			"style" :                                                                                    
+			{
+			    "navigationBarTitleText": "添加善举",
+			    "enablePullDownRefresh": false
+			}
+			
+		},
+		{
+			"path" : "pages/user/myKinddeed",
+			"style" :                                                                                    
+			{
+			    "navigationBarTitleText": "善举列表",
+			    "enablePullDownRefresh": false
+			}
+			
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

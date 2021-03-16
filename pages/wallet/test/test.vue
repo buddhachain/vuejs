@@ -9,6 +9,9 @@
 		<view class="u-m-t-30"><u-button type="primary" @click="applyTemple" ripple :custom-style="{ color: '#fff' }">申请成为寺院</u-button></view>
 		<view class="u-m-t-30"><u-button type="primary" @click="add" ripple :custom-style="{ color: '#fff' }">添加善行类型</u-button></view>
 		<view class="u-m-t-30"><u-button type="primary" @click="addDetails" ripple :custom-style="{ color: '#fff' }">添加善行详情</u-button></view>
+		<view class="u-m-t-30"><u-button type="primary" @click="applyOnline" ripple :custom-style="{ color: '#fff' }">申请上下架</u-button></view>
+		<view class="u-m-t-30"><u-button type="primary" @click="pray_kinddeed" ripple :custom-style="{ color: '#fff' }">用户祈求善举</u-button></view>
+		<view class="u-m-t-30"><u-button type="primary" @click="addBeforecomment" ripple :custom-style="{ color: '#fff' }">点评</u-button></view>
 		<view class="u-m-t-30"><u-button type="primary" @click="find" ripple :custom-style="{ color: '#fff' }">查询</u-button></view>
 	</view>
 </template>
@@ -60,30 +63,54 @@ export default {
 			invoke('is_master', {}, '0');
 		},
 		async applyTemple() {
-			invoke('apply_temple', { unit: '佛山顶观音寺', creditcode: 'F110300007', address: '浙江丽水佛顶山', proof: 'QmQdjouEJc16JTgZ3ifbD5eEn8jyMZvD2b2EG1WhdkFuRb' }, '0');
+			// invoke('apply_temple', { unit: '佛山顶观音寺', creditcode: 'F110300007', address: '浙江丽水佛顶山', proof: 'QmQdjouEJc16JTgZ3ifbD5eEn8jyMZvD2b2EG1WhdkFuRb' }, '0');
+
+			// invoke('list_temple', {}, '0');
+			invoke('approve_temple', { id: 'nRv4jJd25N13tBVxq3EjnjSB1uviLM548' }, '0');
 		},
 		async add() {
 			// invoke('add_kinddeedtype', { id: '3', desc: '事业顺心2222223332' }, '0');
 			// invoke('find_kinddeedtype', { id: '1' }, '0');
-			// invoke('list_kinddeedtype', {  }, '0');
+			invoke('list_kinddeedtype', {}, '0');
 			// invoke('update_kinddeedtype', { id: '1', desc: '事业顺心111' }, '0');
 			// invoke('delete_kinddeedtype', { id: '1'}, '0');
 		},
 
 		async addDetails() {
-			invoke(
-				'add_kinddeed',
-				{
-					id: '1',
-					name: 'kd1',
-					type: '1',
-					lasttime: 'xxxxxx',
-					detail: [{ sequence: '1', hash: 'xxxxxx' }, { sequence: '2', hash: 'yyyyyy' }],
-					spec: [{ sequence: '1', desc: 'aaaaaa', price: '10' }, { sequence: '2', desc: 'bbbbbb', price: '10' }]
-				},
-				'0'
-			);
-		}
+			let obj = {
+				id: '1',
+				name: 'kd1',
+				type: '1',
+				lasttime: 'xxxxxx',
+				detail: [{ sequence: '1', hash: '1xxxxxxx' }],
+				spec: [{ sequence: '1', desc: 'aaaaaa', price: '10' }, { sequence: '2', desc: 'xxxxxxx', price: '10' }]
+			};
+			console.log(JSON.stringify(obj));
+			let a = JSON.stringify(obj);
+			// invoke('add_kinddeed',{"id":"3", "name":"kd1", "type":"1", "lasttime":"xxxxxx", "detail":"[{\"sequence\":\"1\", \"hash\":\"xxxxxx\"},{\"sequence\":\"2\", \"hash\":\"yyyyyy\"}]", "spec":"[{\"sequence\":\"1\", \"desc\":\"aaaaaa\", \"price\":\"10\"},{\"sequence\":\"2\", \"desc\":\"bbbbbb\", \"price\":\"10\"}]" }, '0');
+			// // invoke('find_kinddeed',{'id':'1'},'0');
+			// invoke('list_kinddeed', {}, '0');
+			// invoke('list_kinddeeddetail', { kdid: '1' }, '0');
+			// invoke('list_kinddeedspec', {kdid:'1'}, '0');
+		},
+		async applyOnline() {
+			invoke('approve_online_kinddeed', { id: '2' }, '0');
+		},
+		pray_kinddeed(){
+			invoke('pray_kinddeed', {"id": "2","kinddeed":"2","spec":"1","count":"1","timestamp":"11111"}, '20');
+			// invoke('list_pray_kinddeed', {}, '0');
+		},
+		async addBeforecomment() {
+			// invoke('add_beforecomment', {"kdid":"1", "satisfaction":"0", "labels":"[\"1\"]","comment":"够前评论，不孬","timestamp":"xxxxxx"}, '0');
+
+			// invoke('add_commentlabel', { id: '2',"desc":"处理及时"}, '0');
+			// invoke('list_pray_kinddeed', {id:"fadAkuBzJABCoQnNHUpZhUhoRqJ8cEkV7","proof":"xxxxx", "timestamp":"xxxxxx" }, '0');
+			
+			// invoke('is_user', {}, '0');
+			invoke('list_kinddeedproof', {}, '0');
+			
+		},
+		
 	}
 };
 </script>

@@ -26,7 +26,7 @@
 			</u-cell-group>
 		</view>
 
-		<view class="order-brn"><u-button type="primary" ripple shape="circle" :custom-style="{ width: '500rpx' }">确认支付</u-button></view>
+		<view class="order-brn"><u-button type="primary" ripple shape="circle" @click="show = true" :custom-style="{ width: '500rpx' }">确认支付</u-button></view>
 		<view class="u-flex order-pop">
 			<image class="pop-icon" src="/static/logo.png" mode="widthFix"></image>
 			<view class="">
@@ -37,15 +37,42 @@
 				</view>
 			</view>
 		</view>
+
+		<!-- 密码输入框 -->
+		<u-popup v-model="show" mode="center" border-radius="10" width="600rpx">
+			<view class="u-p-30"><u-input v-model="value" border type="password" placeholder="请输入密码" /></view>
+			<view class="u-flex u-m-t-20 u-p-b-30">
+				<u-button type="primary" :disabled="value == ''" ripple size="mini" shape="circle" @click="pay" :custom-style="{ width: '200rpx', height: '60rpx' }">确认</u-button>
+			</view>
+		</u-popup>
 	</view>
 </template>
 
 <script>
+import { invoke } from '@/lib/XuperChainSdk.js';
 export default {
 	data() {
 		return {
-			checked: false
+			checked: false,
+			show: false,
+			value: ''
 		};
+	},
+	methods: {
+		async pay() {
+			if(this.value === uni.getStorageSync('noPwd')){
+				await invoke('pray_kinddeed', { id: '3', kinddeed: '3', spec: '1', count: '1', timestamp: '11111' }, '111');
+				uni.showToast({
+					title:'祈福成功'
+				})
+				this.show = false
+			}else{
+				uni.showToast({
+					title:'密码错误',
+					icon:"none"
+				})
+			}
+		}
 	}
 };
 </script>

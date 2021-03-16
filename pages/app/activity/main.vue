@@ -218,6 +218,7 @@
 import uniPopup from '@/components/uni-popup/uni-popup.vue'
 import uniPopupMessage from '@/components/uni-popup/uni-popup-message.vue'
 import uniPopupDialog from '@/components/uni-popup/uni-popup-dialog.vue'
+import { invoke } from '@/lib/XuperChainSdk.js';
 export default {
     components: {
         uniPopup,
@@ -244,6 +245,9 @@ export default {
             this.type_quantity = 1;
         }
     },
+	onLoad() {
+		this.getDetails()
+	},
     methods: {
         actionHandles (num) {
             console.log(num, 'actionHandles')
@@ -280,6 +284,10 @@ export default {
 			uni.navigateTo({
 				url:"/pages/app/activity/editor"
 			})
+		},
+		async getDetails(){
+			const res = await invoke('list_kinddeeddetail', {kdid:1}, '0');
+			const dec = await invoke('list_kinddeedspec', {kdid:1}, '0');
 		}
     },
 }
