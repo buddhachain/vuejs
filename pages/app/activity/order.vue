@@ -61,7 +61,7 @@ export default {
 	methods: {
 		async pay() {
 			if(this.value === uni.getStorageSync('noPwd')){
-				await invoke('pray_kinddeed', { id: '3', kinddeed: '3', spec: '1', count: '1', timestamp: '11111' }, '111');
+				await invoke('pray_kinddeed', { id: '24', kinddeed: '1', spec: '1', count: '1', timestamp: '11111' }, '111');
 				uni.showToast({
 					title:'祈福成功'
 				})

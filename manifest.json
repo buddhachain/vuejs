@@ -78,8 +78,14 @@
     "h5" : {
         "title" : "佛界",
         "router" : {
-            "mode" : "hash"
+            "mode" : "hash",
+            "base" : "./"
         },
-        "template" : "template.h5.html"
+        "template" : "template.h5.html",
+        "optimization" : {
+            "treeShaking" : {
+                "enable" : true
+            }
+        }
     }
 }

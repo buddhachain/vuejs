@@ -33,8 +33,8 @@ export default {
 		async getRestultFromServer(status) {
 			switch (this.currentIndex) {
 				case 0:
-					alert(1);
-					await invoke('approve_online_kinddeed', { id: '1' }, '0');
+					await invoke('approve_online_kinddeed', { id: '24' }, '0');
+					
 					break;
 				case 1:
 					await invoke('approve_join_temple', { templeid: 'nRv4jJd25N13tBVxq3EjnjSB1uviLM548' }, '0');

@@ -41,7 +41,7 @@
 				<textarea type="text" value="" class="input-box" style="width: 530rpx;" />
 			</view>
 		</view>
-		<view class="u-m-30 u-m-t-80">
+		<view class="u-m-t-80">
 			<u-button type="primary" ripple @click="applyMaster" :custom-style="{ height: '80rpx', color: '#fff' }">申请认证</u-button>
 		</view>
 	</view>
@@ -122,7 +122,7 @@ export default {
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			background-color: #f3f4f6;
+			background-color: #eaecf7;
 		}
 	}
 }

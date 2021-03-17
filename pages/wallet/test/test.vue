@@ -50,7 +50,9 @@ export default {
 			// console.log(b);
 			// const balance =await xsdk.getBalanceDetail()
 			// console.log(balance)
-			const res = await xsdk.queryTransaction('xCMKCZGtyXY4zSoOd7WzzV/i1WkU0zlQLIySmFl5xS0=');
+			// const res = await xsdk.queryTransaction('xCMKCZGtyXY4zSoOd7WzzV/i1WkU0zlQLIySmFl5xS0=');
+			invoke('list_pray_kinddeed', {}, '0');
+			
 			console.log(res);
 		},
 		async cheack() {
@@ -61,6 +63,7 @@ export default {
 		},
 		async isMaster() {
 			invoke('is_master', {}, '0');
+			// invoke('is_temple', {}, '0');
 		},
 		async applyTemple() {
 			// invoke('apply_temple', { unit: '佛山顶观音寺', creditcode: 'F110300007', address: '浙江丽水佛顶山', proof: 'QmQdjouEJc16JTgZ3ifbD5eEn8jyMZvD2b2EG1WhdkFuRb' }, '0');

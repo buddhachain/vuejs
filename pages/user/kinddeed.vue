@@ -44,8 +44,8 @@
 			<u-button ripple @click="show = true" plain class="u-flex-1" :custom-style="{ height: '60rpx' }">添加</u-button>
 		</view>
 
-		<view class=""><u-tag class="u-m-r-10 u-m-t-10" :text="item.desc + '/' + item.price" v-for="(item, index) in formData.spec" :key="index" type="success" /></view>
-		<view class="u-m-30 u-m-t-80">
+		<view class=""><u-tag class="u-m-r-10 u-m-t-20" :text="item.desc + ' / ' + item.price" v-for="(item, index) in formData.spec" :key="index" type="primary" /></view>
+		<view class="u-m-t-80">
 			<u-button type="primary" ripple @click="addKinddeed" :custom-style="{height: '80rpx', color: '#fff' }">提交</u-button>
 		</view>
 		<u-popup v-model="show" mode="center" border-radius="14" width="600rpx" height="600rpx">
@@ -187,7 +187,7 @@ export default {
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			background-color: #f3f4f6;
+			background-color: #eaecf7;
 		}
 	}
 	.image-list {

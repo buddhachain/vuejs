@@ -26,7 +26,7 @@
 			</u-radio-group> -->
 		</view>
 		<view class="u-m-30 u-m-t-80">
-			<u-button type="primary" ripple @click="applyFounder" :loading="isLoading" :custom-style="{ background: '#735ba0', height: '80rpx', color: '#fff' }">申请认证</u-button>
+			<u-button type="primary" ripple @click="applyFounder" :loading="isLoading" :custom-style="{height: '80rpx', color: '#fff' }">申请认证</u-button>
 		</view>
 		<!-- 日期选择器 -->
 		<u-picker mode="time" v-model="showTimePicker" :params="params" @confirm="getTime"></u-picker>

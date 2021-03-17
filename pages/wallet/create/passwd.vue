@@ -36,8 +36,27 @@
 			<view><text class="red">* 钱包密码用于保护您的私钥，建议设置足够强度的密码</text></view>
 			<view><text class="red">* 钱包密码丢失将无法找回，请务必牢记您设置的密码</text></view>
 		</view>
-		<u-button type="primary" :disabled="hasErrors" @click="confirmCreate" ripple shape="circle" :custom-style="{ height: '80rpx', color: '#fff' }">确认创建</u-button>
-		<CheckPasswd v-if="isShowCheckPassword" title="原钱包密码" @success="confirmCreate" />
+		<u-button type="primary" :disabled="hasErrors" @click="confirmCreate" ripple shape="circle" :custom-style="{ height: '80rpx', color: '#fff' }">
+			{{ type == 2 ? '确认修改' : '确认创建' }}
+		</u-button>
+		<!-- <CheckPasswd v-if="isShowCheckPassword" title="原钱包密码" @success="confirmCreate" /> -->
+		<u-popup v-model="show" mode="center" border-radius="14" width="600rpx" :mask-close-able="false">
+			<view class="u-p-30 u-text-center">
+				<u-field v-model="pwd" password :label-width="0" :border-bottom="false" placeholder="请输入当前密码"></u-field>
+				<u-button
+					type="primary"
+					class="u-m-t-30"
+					@click="successhandle"
+					ripple
+					shape="circle"
+					size="mini"
+					:disabled="!pwd"
+					:custom-style="{ width: '200rpx', height: '60rpx', color: '#fff' }"
+				>
+					确定
+				</u-button>
+			</view>
+		</u-popup>
 	</view>
 </template>
 <script>
@@ -57,7 +76,9 @@ export default {
 			type: 1,
 			isShowCheckPassword: false,
 			isLoading: false,
-			isApp: ''
+			isApp: '',
+			show:false,
+			pwd:''
 		};
 	},
 	computed: {
@@ -76,6 +97,7 @@ export default {
 		this.type = Number(t);
 		this.isApp = isApp;
 		if (this.type === 2) {
+			this.show = true
 			uni.setNavigationBarTitle({
 				title: '修改钱包密码'
 			});
@@ -101,6 +123,16 @@ export default {
 		successhandle(passwd) {}
 	},
 	methods: {
+		// 验证密码成功后
+		successhandle() {
+			const res = passwordActions.check(this.pwd);
+			if (!res) {
+				this.pwd = '';
+				return this.$toast('密码错误');
+			}
+			console.log(this.pwd);
+			this.show = false;
+		},
 		pwdAuth() {
 			let nV = this.passwd;
 			if (/\d/.test(nV) && (/[A-Z]/.test(nV) || /[a-z]/.test(nV)) && nV.length >= 8) {
@@ -118,17 +150,17 @@ export default {
 				}
 			}
 		},
-		async confirmCreate(oldPasswd) {
+		async confirmCreate() {
 			if (this.passwdErrMsg || this.confirmErrMsg) return;
-			if (this.type === 2 && !oldPasswd) {
-				return (this.isShowCheckPassword = true);
-			}
+			// if (this.type === 2 && !) {
+			// 	return (this.isShowCheckPassword = true);
+			// }
 
 			// 密码md5本地存储 （pw)
 			if (this.type === 1) {
 				// 此处应该先创建钱包， 使用用户设置的密码将助记词加密后存储到本地；
 				const account = createAccount();
-				console.log(account)
+				console.log(account);
 				if (this.isApp) {
 					uni_new.postMessage({
 						data: {
@@ -142,14 +174,16 @@ export default {
 					passwordActions.setNoPwd(this.passwd);
 					await this.postUser(account);
 					uni.reLaunch({
-						url:'/pages/app/index'
-					})
+						url: '/pages/app/index'
+					});
 				}
 			} else if (this.type === 2) {
 				// 如果是修改钱包密码
 				// 应该先取出使用旧密码加密过的
 				const { mnemonic_lock, address } = accountActions.get();
-				const mnemonic = accountActions.deCrypt(mnemonic_lock, oldPasswd);
+				const mnemonic = accountActions.deCrypt(mnemonic_lock, this.pwd);
+				console.log(mnemonic,address)
+				uni.clearStorageSync()
 				// 使用新密码加密后存储
 				accountActions.save(
 					{
@@ -158,6 +192,8 @@ export default {
 					},
 					this.passwd
 				);
+				passwordActions.set(this.passwd);
+				passwordActions.setNoPwd(this.passwd);
 				// 修改成功
 				this.$toastSucc('修改成功', () => {
 					this.passwd = '';

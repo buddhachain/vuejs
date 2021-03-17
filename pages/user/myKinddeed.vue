@@ -10,6 +10,7 @@
 				</view>
 			</u-cell-item>
 		</u-cell-group>
+		<view class="">{{ list }}</view>
 	</view>
 </template>
 
@@ -27,6 +28,7 @@ export default {
 	methods: {
 		async getList() {
 			const res = await invoke('list_kinddeed', {}, '0');
+			this.list = res;
 		},
 		async delateKind() {
 			uni.showModal({
@@ -41,13 +43,12 @@ export default {
 			});
 		},
 		async applyOnlineKinddeed() {
-			const res = await invoke('apply_online_kinddeed', {id: '1'}, '0');
+			const res = await invoke('apply_online_kinddeed', { id: '24' }, '0');
 			// const res = await invoke('apply_offline_kinddeed', {id: '1'}, '0');
 			uni.showToast({
-				title:'已申请'
-			})
-		},
-		
+				title: '已申请'
+			});
+		}
 	}
 };
 </script>
